@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AdendaEditDlg" widgetVar="AdendaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAdendaTitle}" closeOnEscape="true">
+
+            <h:form id="AdendaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{adendaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAdendaLabel_adendaPK_nocorrelativo}" for="adendaPK_nocorrelativo" />
+                        <h:outputText id="adendaPK_nocorrelativo" value="#{adendaController.selected.adendaPK.nocorrelativo}" />
+
+                        <p:outputLabel value="#{myBundle.EditAdendaLabel_textobases}" for="textobases" />
+                        <p:inputText id="textobases" value="#{adendaController.selected.textobases}" title="#{myBundle.EditAdendaTitle_textobases}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditAdendaLabel_operacion}" for="operacion" />
+                        <p:inputText id="operacion" value="#{adendaController.selected.operacion}" title="#{myBundle.EditAdendaTitle_operacion}" size="50" maxlength="50"/>
+
+
+                        <h:outputLabel value="#{myBundle.EditAdendaLabel_expedienteproceso}" for="expedienteproceso" />
+                        <h:outputText id="expedienteproceso" value="#{adendaController.selected.expedienteproceso}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adendaController.save}" value="#{myBundle.Save}" update="display,:AdendaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AdendaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('AdendaEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

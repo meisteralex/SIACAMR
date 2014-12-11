@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallenecesipaacViewDlg" widgetVar="DetallenecesipaacViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDetallenecesipaacTitle}" closeOnEscape="true">
+
+            <h:form id="DetallenecesipaacViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{detallenecesipaacController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_detallenecesipaacPK_nocorrelativo}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.detallenecesipaacPK.nocorrelativo}" title="#{myBundle.ViewDetallenecesipaacTitle_detallenecesipaacPK_nocorrelativo}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_fuenterecurso}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.fuenterecurso}" title="#{myBundle.ViewDetallenecesipaacTitle_fuenterecurso}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_descripcionunspsc}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.descripcionunspsc}" title="#{myBundle.ViewDetallenecesipaacTitle_descripcionunspsc}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_cantidadproyectada}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.cantidadproyectada}" title="#{myBundle.ViewDetallenecesipaacTitle_cantidadproyectada}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_unidadmedida}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.unidadmedida}" title="#{myBundle.ViewDetallenecesipaacTitle_unidadmedida}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_preciounitario}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.preciounitario}" title="#{myBundle.ViewDetallenecesipaacTitle_preciounitario}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_preciototal}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.preciototal}" title="#{myBundle.ViewDetallenecesipaacTitle_preciototal}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_mesesperado}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.mesesperado}" title="#{myBundle.ViewDetallenecesipaacTitle_mesesperado}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_codigounspsc}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.codigounspsc.descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallenecesipaacLabel_listadonecesipaac}"/>
+                        <h:outputText value="#{detallenecesipaacController.selected.listadonecesipaac.ejerciciofiscal}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DetallenecesipaacViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

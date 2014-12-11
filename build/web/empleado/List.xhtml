@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EmpleadoListForm">
+
+        <p:panel header="#{myBundle.ListEmpleadoTitle}">
+            <p:contextMenu id="EmpleadoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EmpleadoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EmpleadoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EmpleadoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EmpleadoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.EmpleadoMenuItem_iduser}" icon="ui-icon-search"  actionListener="#{empleadoController.prepareIduser}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty empleadoController.selected.iduser}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{empleadoController.items}"
+                         var="item"
+                         rowKey="#{item.idempleado}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{empleadoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":EmpleadoListForm:createButton :EmpleadoListForm:viewButton :EmpleadoListForm:editButton :EmpleadoListForm:deleteButton :EmpleadoListForm:EmpleadoDataTableContextMenu" listener="#{empleadoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":EmpleadoListForm:createButton :EmpleadoListForm:viewButton :EmpleadoListForm:editButton :EmpleadoListForm:deleteButton :EmpleadoListForm:EmpleadoDataTableContextMenu" listener="#{empleadoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EmpleadoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idempleado}" filterBy="#{item.idempleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_idempleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idempleado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.direccionemp}" filterBy="#{item.direccionemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_direccionemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.direccionemp}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreempleado}" filterBy="#{item.nombreempleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_nombreempleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreempleado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.apellidoempleado}" filterBy="#{item.apellidoempleado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_apellidoempleado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.apellidoempleado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cargoemp}" filterBy="#{item.cargoemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_cargoemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cargoemp}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.telefonoemp}" filterBy="#{item.telefonoemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpleadoTitle_telefonoemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.telefonoemp}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.correoelectronicoemp}" filterBy="#{item.correoelectronicoemp}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmpleadoTitle_correoelectronicoemp}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.correoelectronicoemp}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.observacionesemp}" filterBy="#{item.observacionesemp}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmpleadoTitle_observacionesemp}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.observacionesemp}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.iduser.iduser}" filterBy="#{item.iduser.iduser}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListEmpleadoTitle_iduser}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.iduser.iduser}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{empleadoController.prepareCreate}" update=":EmpleadoCreateForm" oncomplete="PF('EmpleadoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" disabled="#{empty empleadoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{empleadoController.delete}" update=":growl,datalist" disabled="#{empty empleadoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

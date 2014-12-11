@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PaacListForm">
+
+        <p:panel header="#{myBundle.ListPaacTitle}">
+            <p:contextMenu id="PaacDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PaacListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PaacListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PaacListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PaacListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PaacMenuItem_detallepaacCollection}" icon="ui-icon-search"  action="#{paacController.navigateDetallepaacCollection}" disabled="#{empty paacController.selected.detallepaacCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.PaacMenuItem_codigoinstitucion}" icon="ui-icon-search"  actionListener="#{paacController.prepareCodigoinstitucion}" update=":DatosinstitucionalesViewForm" oncomplete="PF('DatosinstitucionalesViewDialog').show()" disabled="#{empty paacController.selected.codigoinstitucion}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{paacController.items}"
+                         var="item"
+                         rowKey="#{item.ejerciciofiscal}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{paacController.selected}">
+
+                <p:ajax event="rowSelect"   update=":PaacListForm:createButton :PaacListForm:viewButton :PaacListForm:editButton :PaacListForm:deleteButton :PaacListForm:PaacDataTableContextMenu" listener="#{paacController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":PaacListForm:createButton :PaacListForm:viewButton :PaacListForm:editButton :PaacListForm:deleteButton :PaacListForm:PaacDataTableContextMenu" listener="#{paacController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PaacListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.ejerciciofiscal}" filterBy="#{item.ejerciciofiscal}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaacTitle_ejerciciofiscal}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ejerciciofiscal}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreinstitucion}" filterBy="#{item.nombreinstitucion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaacTitle_nombreinstitucion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreinstitucion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaelaboracion}" filterBy="#{item.fechaelaboracion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaacTitle_fechaelaboracion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaelaboracion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.version}" filterBy="#{item.version}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaacTitle_version}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.version}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.correlativomodificacion}" filterBy="#{item.correlativomodificacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaacTitle_correlativomodificacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.correlativomodificacion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.codigoinstitucion.codigoinstitucion}" filterBy="#{item.codigoinstitucion.codigoinstitucion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaacTitle_codigoinstitucion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigoinstitucion.codigoinstitucion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{paacController.prepareCreate}" update=":PaacCreateForm" oncomplete="PF('PaacCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PaacViewForm" oncomplete="PF('PaacViewDialog').show()" disabled="#{empty paacController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PaacEditForm" oncomplete="PF('PaacEditDialog').show()" disabled="#{empty paacController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{paacController.delete}" update=":growl,datalist" disabled="#{empty paacController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

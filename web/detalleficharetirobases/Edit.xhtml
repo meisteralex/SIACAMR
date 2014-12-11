@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DetalleficharetirobasesEditDlg" widgetVar="DetalleficharetirobasesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDetalleficharetirobasesTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleficharetirobasesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{detalleficharetirobasesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_detalleficharetirobasesPK_nocorrelativo}" for="detalleficharetirobasesPK_nocorrelativo" />
+                        <h:outputText id="detalleficharetirobasesPK_nocorrelativo" value="#{detalleficharetirobasesController.selected.detalleficharetirobasesPK.nocorrelativo}" />
+
+                        <p:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_nombrecomisionado}" for="nombrecomisionado" />
+                        <p:inputText id="nombrecomisionado" value="#{detalleficharetirobasesController.selected.nombrecomisionado}" title="#{myBundle.EditDetalleficharetirobasesTitle_nombrecomisionado}" required="true" requiredMessage="#{myBundle.EditDetalleficharetirobasesRequiredMessage_nombrecomisionado}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_documentoidcomisionado}" for="documentoidcomisionado" />
+                        <p:inputText id="documentoidcomisionado" value="#{detalleficharetirobasesController.selected.documentoidcomisionado}" title="#{myBundle.EditDetalleficharetirobasesTitle_documentoidcomisionado}" required="true" requiredMessage="#{myBundle.EditDetalleficharetirobasesRequiredMessage_documentoidcomisionado}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_lugarparanotificaciones}" for="lugarparanotificaciones" />
+                        <p:inputText id="lugarparanotificaciones" value="#{detalleficharetirobasesController.selected.lugarparanotificaciones}" title="#{myBundle.EditDetalleficharetirobasesTitle_lugarparanotificaciones}" required="true" requiredMessage="#{myBundle.EditDetalleficharetirobasesRequiredMessage_lugarparanotificaciones}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_fecharetirobases}" for="fecharetirobases" />
+                        <p:calendar id="fecharetirobases" pattern="MM/dd/yyyy" value="#{detalleficharetirobasesController.selected.fecharetirobases}" title="#{myBundle.EditDetalleficharetirobasesTitle_fecharetirobases}" required="true" requiredMessage="#{myBundle.EditDetalleficharetirobasesRequiredMessage_fecharetirobases}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_horaretirobases}" for="horaretirobases" />
+                        <p:calendar id="horaretirobases" pattern="HH:mm:ss" value="#{detalleficharetirobasesController.selected.horaretirobases}" title="#{myBundle.EditDetalleficharetirobasesTitle_horaretirobases}" required="true" requiredMessage="#{myBundle.EditDetalleficharetirobasesRequiredMessage_horaretirobases}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_nombreoferente}" for="nombreoferente" />
+                        <p:selectOneMenu id="nombreoferente" value="#{detalleficharetirobasesController.selected.nombreoferente}" required="true" requiredMessage="#{myBundle.EditDetalleficharetirobasesRequiredMessage_nombreoferente}" converter="oferenteConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{oferenteController.items}"
+                                           var="nombreoferenteItem"
+                                           itemValue="#{nombreoferenteItem}"
+                                           itemLabel="#{nombreoferenteItem.nombreoferente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <h:outputLabel value="#{myBundle.EditDetalleficharetirobasesLabel_expedienteproceso}" for="expedienteproceso" />
+                        <h:outputText id="expedienteproceso" value="#{detalleficharetirobasesController.selected.expedienteproceso}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleficharetirobasesController.save}" value="#{myBundle.Save}" update="display,:DetalleficharetirobasesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetalleficharetirobasesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetalleficharetirobasesEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

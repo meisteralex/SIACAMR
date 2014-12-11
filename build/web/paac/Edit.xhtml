@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PaacEditDlg" widgetVar="PaacEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPaacTitle}" closeOnEscape="true">
+
+            <h:form id="PaacEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{paacController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPaacLabel_ejerciciofiscal}" for="ejerciciofiscal" />
+                        <h:outputText id="ejerciciofiscal" value="#{paacController.selected.ejerciciofiscal}" />
+
+                        <p:outputLabel value="#{myBundle.EditPaacLabel_nombreinstitucion}" for="nombreinstitucion" />
+                        <p:inputText id="nombreinstitucion" value="#{paacController.selected.nombreinstitucion}" title="#{myBundle.EditPaacTitle_nombreinstitucion}" required="true" requiredMessage="#{myBundle.EditPaacRequiredMessage_nombreinstitucion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaacLabel_fechaelaboracion}" for="fechaelaboracion" />
+                        <p:calendar id="fechaelaboracion" pattern="MM/dd/yyyy" value="#{paacController.selected.fechaelaboracion}" title="#{myBundle.EditPaacTitle_fechaelaboracion}" required="true" requiredMessage="#{myBundle.EditPaacRequiredMessage_fechaelaboracion}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaacLabel_version}" for="version" />
+                        <p:inputText id="version" value="#{paacController.selected.version}" title="#{myBundle.EditPaacTitle_version}" required="true" requiredMessage="#{myBundle.EditPaacRequiredMessage_version}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaacLabel_correlativomodificacion}" for="correlativomodificacion" />
+                        <p:inputText id="correlativomodificacion" value="#{paacController.selected.correlativomodificacion}" title="#{myBundle.EditPaacTitle_correlativomodificacion}"/>
+
+                        <p:outputLabel value="#{myBundle.EditPaacLabel_codigoinstitucion}" for="codigoinstitucion" />
+                        <p:selectOneMenu id="codigoinstitucion" value="#{paacController.selected.codigoinstitucion}" required="true" requiredMessage="#{myBundle.EditPaacRequiredMessage_codigoinstitucion}" converter="datosinstitucionalesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{datosinstitucionalesController.items}"
+                                           var="codigoinstitucionItem"
+                                           itemValue="#{codigoinstitucionItem}"
+                                           itemLabel="#{codigoinstitucionItem.codigoinstitucion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paacController.save}" value="#{myBundle.Save}" update="display,:PaacListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaacEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('PaacEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExpedienteprocesoViewDlg" widgetVar="ExpedienteprocesoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewExpedienteprocesoTitle}" closeOnEscape="true">
+
+            <h:form id="ExpedienteprocesoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{expedienteprocesoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewExpedienteprocesoLabel_codigoproceso}"/>
+                        <h:outputText value="#{expedienteprocesoController.selected.codigoproceso}" title="#{myBundle.ViewExpedienteprocesoTitle_codigoproceso}"/>
+
+                        <h:outputText value="#{myBundle.ViewExpedienteprocesoLabel_denominacionproceso}"/>
+                        <h:outputText value="#{expedienteprocesoController.selected.denominacionproceso}" title="#{myBundle.ViewExpedienteprocesoTitle_denominacionproceso}"/>
+
+                        <h:outputText value="#{myBundle.ViewExpedienteprocesoLabel_responsableproceso}"/>
+                        <h:outputText value="#{expedienteprocesoController.selected.responsableproceso}" title="#{myBundle.ViewExpedienteprocesoTitle_responsableproceso}"/>
+
+                        <h:outputText value="#{myBundle.ViewExpedienteprocesoLabel_tipoproceso}"/>
+                        <h:outputText value="#{expedienteprocesoController.selected.tipoproceso}" title="#{myBundle.ViewExpedienteprocesoTitle_tipoproceso}"/>
+
+                        <h:outputText value="#{myBundle.ViewExpedienteprocesoLabel_estadoproceso}"/>
+                        <h:outputText value="#{expedienteprocesoController.selected.estadoproceso}" title="#{myBundle.ViewExpedienteprocesoTitle_estadoproceso}"/>
+
+                        <h:outputText value="#{myBundle.ViewExpedienteprocesoLabel_nombreadjudicatario}"/>
+                        <h:outputText value="#{expedienteprocesoController.selected.nombreadjudicatario.nombreoferente}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ExpedienteprocesoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

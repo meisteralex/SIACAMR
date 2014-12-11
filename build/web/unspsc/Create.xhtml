@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnspscCreateDlg" widgetVar="UnspscCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUnspscTitle}" closeOnEscape="true">
+
+            <h:form id="UnspscCreateForm">
+
+                <h:panelGroup id="display" rendered="#{unspscController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUnspscLabel_codigo}" for="codigo" />
+                        <p:inputText id="codigo" value="#{unspscController.selected.codigo}" title="#{myBundle.CreateUnspscTitle_codigo}" required="true" requiredMessage="#{myBundle.CreateUnspscRequiredMessage_codigo}" size="8" maxlength="8"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUnspscLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{unspscController.selected.descripcion}" title="#{myBundle.CreateUnspscTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateUnspscRequiredMessage_descripcion}" size="30" maxlength="30"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unspscController.saveNew}" value="#{myBundle.Save}" update="display,:UnspscListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UnspscCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('UnspscCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

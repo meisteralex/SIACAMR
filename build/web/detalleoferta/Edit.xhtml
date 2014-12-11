@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DetalleofertaEditDlg" widgetVar="DetalleofertaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDetalleofertaTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleofertaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{detalleofertaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDetalleofertaLabel_detalleofertaPK_rubro}" for="detalleofertaPK_rubro" />
+                        <h:outputText id="detalleofertaPK_rubro" value="#{detalleofertaController.selected.detalleofertaPK.rubro}" />
+
+                        <p:outputLabel value="#{myBundle.EditDetalleofertaLabel_marcaofertada}" for="marcaofertada" />
+                        <p:inputText id="marcaofertada" value="#{detalleofertaController.selected.marcaofertada}" title="#{myBundle.EditDetalleofertaTitle_marcaofertada}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleofertaLabel_preciounitario}" for="preciounitario" />
+                        <p:inputText id="preciounitario" value="#{detalleofertaController.selected.preciounitario}" title="#{myBundle.EditDetalleofertaTitle_preciounitario}"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleofertaLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{detalleofertaController.selected.total}" title="#{myBundle.EditDetalleofertaTitle_total}"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetalleofertaLabel_montogarantia}" for="montogarantia" />
+                        <p:inputText id="montogarantia" value="#{detalleofertaController.selected.montogarantia}" title="#{myBundle.EditDetalleofertaTitle_montogarantia}"/>
+
+
+                        <h:outputLabel value="#{myBundle.EditDetalleofertaLabel_oferta}" for="oferta" />
+                        <h:outputText id="oferta" value="#{detalleofertaController.selected.oferta}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleofertaController.save}" value="#{myBundle.Save}" update="display,:DetalleofertaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetalleofertaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetalleofertaEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

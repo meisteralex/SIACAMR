@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleficharetirobasesCreateDlg" widgetVar="DetalleficharetirobasesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDetalleficharetirobasesTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleficharetirobasesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detalleficharetirobasesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_detalleficharetirobasesPK_nocorrelativo}" for="detalleficharetirobasesPK_nocorrelativo" />
+                        <p:inputText id="detalleficharetirobasesPK_nocorrelativo" value="#{detalleficharetirobasesController.selected.detalleficharetirobasesPK.nocorrelativo}" title="#{myBundle.CreateDetalleficharetirobasesTitle_detalleficharetirobasesPK_nocorrelativo}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_detalleficharetirobasesPK_nocorrelativo}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_nombrecomisionado}" for="nombrecomisionado" />
+                        <p:inputText id="nombrecomisionado" value="#{detalleficharetirobasesController.selected.nombrecomisionado}" title="#{myBundle.CreateDetalleficharetirobasesTitle_nombrecomisionado}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_nombrecomisionado}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_documentoidcomisionado}" for="documentoidcomisionado" />
+                        <p:inputText id="documentoidcomisionado" value="#{detalleficharetirobasesController.selected.documentoidcomisionado}" title="#{myBundle.CreateDetalleficharetirobasesTitle_documentoidcomisionado}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_documentoidcomisionado}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_lugarparanotificaciones}" for="lugarparanotificaciones" />
+                        <p:inputText id="lugarparanotificaciones" value="#{detalleficharetirobasesController.selected.lugarparanotificaciones}" title="#{myBundle.CreateDetalleficharetirobasesTitle_lugarparanotificaciones}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_lugarparanotificaciones}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_fecharetirobases}" for="fecharetirobases" />
+                        <p:calendar id="fecharetirobases" pattern="MM/dd/yyyy" value="#{detalleficharetirobasesController.selected.fecharetirobases}" title="#{myBundle.CreateDetalleficharetirobasesTitle_fecharetirobases}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_fecharetirobases}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_horaretirobases}" for="horaretirobases" />
+                        <p:calendar id="horaretirobases" pattern="HH:mm:ss" value="#{detalleficharetirobasesController.selected.horaretirobases}" title="#{myBundle.CreateDetalleficharetirobasesTitle_horaretirobases}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_horaretirobases}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_nombreoferente}" for="nombreoferente" />
+                        <p:selectOneMenu id="nombreoferente" value="#{detalleficharetirobasesController.selected.nombreoferente}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_nombreoferente}" converter="oferenteConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{oferenteController.items}"
+                                           var="nombreoferenteItem"
+                                           itemValue="#{nombreoferenteItem}"
+                                           itemLabel="#{nombreoferenteItem.nombreoferente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleficharetirobasesLabel_expedienteproceso}" for="expedienteproceso" />
+                        <p:selectOneMenu id="expedienteproceso" value="#{detalleficharetirobasesController.selected.expedienteproceso}" required="true" requiredMessage="#{myBundle.CreateDetalleficharetirobasesRequiredMessage_expedienteproceso}" converter="expedienteprocesoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{expedienteprocesoController.items}"
+                                           var="expedienteprocesoItem"
+                                           itemValue="#{expedienteprocesoItem}"
+                                           itemLabel="#{expedienteprocesoItem.codigoproceso.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleficharetirobasesController.saveNew}" value="#{myBundle.Save}" update="display,:DetalleficharetirobasesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetalleficharetirobasesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetalleficharetirobasesCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

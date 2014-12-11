@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetalleficharetirobasesListForm">
+
+        <p:panel header="#{myBundle.ListDetalleficharetirobasesTitle}">
+            <p:contextMenu id="DetalleficharetirobasesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DetalleficharetirobasesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DetalleficharetirobasesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DetalleficharetirobasesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DetalleficharetirobasesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DetalleficharetirobasesMenuItem_nombreoferente}" icon="ui-icon-search"  actionListener="#{detalleficharetirobasesController.prepareNombreoferente}" update=":OferenteViewForm" oncomplete="PF('OferenteViewDialog').show()" disabled="#{empty detalleficharetirobasesController.selected.nombreoferente}"/>  
+                <p:menuitem value="#{myBundle.DetalleficharetirobasesMenuItem_expedienteproceso}" icon="ui-icon-search"  actionListener="#{detalleficharetirobasesController.prepareExpedienteproceso}" update=":ExpedienteprocesoViewForm" oncomplete="PF('ExpedienteprocesoViewDialog').show()" disabled="#{empty detalleficharetirobasesController.selected.expedienteproceso}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detalleficharetirobasesController.items}"
+                         var="item"
+                         rowKey="#{item.detalleficharetirobasesPK}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detalleficharetirobasesController.selected}">
+
+                <p:ajax event="rowSelect"   update=":DetalleficharetirobasesListForm:createButton :DetalleficharetirobasesListForm:viewButton :DetalleficharetirobasesListForm:editButton :DetalleficharetirobasesListForm:deleteButton :DetalleficharetirobasesListForm:DetalleficharetirobasesDataTableContextMenu" listener="#{detalleficharetirobasesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":DetalleficharetirobasesListForm:createButton :DetalleficharetirobasesListForm:viewButton :DetalleficharetirobasesListForm:editButton :DetalleficharetirobasesListForm:deleteButton :DetalleficharetirobasesListForm:DetalleficharetirobasesDataTableContextMenu" listener="#{detalleficharetirobasesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetalleficharetirobasesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.detalleficharetirobasesPK.nocorrelativo}" filterBy="#{item.detalleficharetirobasesPK.nocorrelativo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_detalleficharetirobasesPK_nocorrelativo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.detalleficharetirobasesPK.nocorrelativo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombrecomisionado}" filterBy="#{item.nombrecomisionado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_nombrecomisionado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombrecomisionado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.documentoidcomisionado}" filterBy="#{item.documentoidcomisionado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_documentoidcomisionado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.documentoidcomisionado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lugarparanotificaciones}" filterBy="#{item.lugarparanotificaciones}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_lugarparanotificaciones}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.lugarparanotificaciones}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fecharetirobases}" filterBy="#{item.fecharetirobases}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_fecharetirobases}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fecharetirobases}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.horaretirobases}" filterBy="#{item.horaretirobases}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_horaretirobases}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horaretirobases}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.nombreoferente.nombreoferente}" filterBy="#{item.nombreoferente.nombreoferente}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_nombreoferente}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nombreoferente.nombreoferente}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.expedienteproceso.codigoproceso}" filterBy="#{item.expedienteproceso.codigoproceso}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetalleficharetirobasesTitle_expedienteproceso}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.expedienteproceso.codigoproceso}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{detalleficharetirobasesController.prepareCreate}" update=":DetalleficharetirobasesCreateForm" oncomplete="PF('DetalleficharetirobasesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DetalleficharetirobasesViewForm" oncomplete="PF('DetalleficharetirobasesViewDialog').show()" disabled="#{empty detalleficharetirobasesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DetalleficharetirobasesEditForm" oncomplete="PF('DetalleficharetirobasesEditDialog').show()" disabled="#{empty detalleficharetirobasesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{detalleficharetirobasesController.delete}" update=":growl,datalist" disabled="#{empty detalleficharetirobasesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

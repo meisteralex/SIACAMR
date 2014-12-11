@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdendaCreateDlg" widgetVar="AdendaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateAdendaTitle}" closeOnEscape="true">
+
+            <h:form id="AdendaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{adendaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateAdendaLabel_adendaPK_nocorrelativo}" for="adendaPK_nocorrelativo" />
+                        <p:inputText id="adendaPK_nocorrelativo" value="#{adendaController.selected.adendaPK.nocorrelativo}" title="#{myBundle.CreateAdendaTitle_adendaPK_nocorrelativo}" required="true" requiredMessage="#{myBundle.CreateAdendaRequiredMessage_adendaPK_nocorrelativo}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAdendaLabel_textobases}" for="textobases" />
+                        <p:inputText id="textobases" value="#{adendaController.selected.textobases}" title="#{myBundle.CreateAdendaTitle_textobases}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAdendaLabel_operacion}" for="operacion" />
+                        <p:inputText id="operacion" value="#{adendaController.selected.operacion}" title="#{myBundle.CreateAdendaTitle_operacion}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.CreateAdendaLabel_expedienteproceso}" for="expedienteproceso" />
+                        <p:selectOneMenu id="expedienteproceso" value="#{adendaController.selected.expedienteproceso}" required="true" requiredMessage="#{myBundle.CreateAdendaRequiredMessage_expedienteproceso}" converter="expedienteprocesoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{expedienteprocesoController.items}"
+                                           var="expedienteprocesoItem"
+                                           itemValue="#{expedienteprocesoItem}"
+                                           itemLabel="#{expedienteprocesoItem.codigoproceso.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adendaController.saveNew}" value="#{myBundle.Save}" update="display,:AdendaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AdendaCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('AdendaCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

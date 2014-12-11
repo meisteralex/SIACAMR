@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="OferenteListForm">
+
+        <p:panel header="#{myBundle.ListOferenteTitle}">
+            <p:contextMenu id="OferenteDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('OferenteListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('OferenteListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('OferenteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('OferenteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.OferenteMenuItem_detalleficharetirobasesCollection}" icon="ui-icon-search"  action="#{oferenteController.navigateDetalleficharetirobasesCollection}" disabled="#{empty oferenteController.selected.detalleficharetirobasesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.OferenteMenuItem_expedienteprocesoCollection}" icon="ui-icon-search"  action="#{oferenteController.navigateExpedienteprocesoCollection}" disabled="#{empty oferenteController.selected.expedienteprocesoCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.OferenteMenuItem_ofertaCollection}" icon="ui-icon-search"  action="#{oferenteController.navigateOfertaCollection}" disabled="#{empty oferenteController.selected.ofertaCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{oferenteController.items}"
+                         var="item"
+                         rowKey="#{item.nombreoferente}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{oferenteController.selected}">
+
+                <p:ajax event="rowSelect"   update=":OferenteListForm:createButton :OferenteListForm:viewButton :OferenteListForm:editButton :OferenteListForm:deleteButton :OferenteListForm:OferenteDataTableContextMenu" listener="#{oferenteController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":OferenteListForm:createButton :OferenteListForm:viewButton :OferenteListForm:editButton :OferenteListForm:deleteButton :OferenteListForm:OferenteDataTableContextMenu" listener="#{oferenteController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('OferenteListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.nombreoferente}" filterBy="#{item.nombreoferente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOferenteTitle_nombreoferente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreoferente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.telefonooferente}" filterBy="#{item.telefonooferente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOferenteTitle_telefonooferente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.telefonooferente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.faxoferente}" filterBy="#{item.faxoferente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOferenteTitle_faxoferente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.faxoferente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.emailoferente}" filterBy="#{item.emailoferente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOferenteTitle_emailoferente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.emailoferente}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tiposervicio}" filterBy="#{item.tiposervicio}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOferenteTitle_tiposervicio}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tiposervicio}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.calificacion}" filterBy="#{item.calificacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOferenteTitle_calificacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.calificacion}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.estadooferente}" filterBy="#{item.estadooferente}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListOferenteTitle_estadooferente}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estadooferente}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{oferenteController.prepareCreate}" update=":OferenteCreateForm" oncomplete="PF('OferenteCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":OferenteViewForm" oncomplete="PF('OferenteViewDialog').show()" disabled="#{empty oferenteController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":OferenteEditForm" oncomplete="PF('OferenteEditDialog').show()" disabled="#{empty oferenteController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{oferenteController.delete}" update=":growl,datalist" disabled="#{empty oferenteController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

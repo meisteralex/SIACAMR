@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RolCreateDlg" widgetVar="RolCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateRolTitle}" closeOnEscape="true">
+
+            <h:form id="RolCreateForm">
+
+                <h:panelGroup id="display" rendered="#{rolController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateRolLabel_idrol}" for="idrol" />
+                        <p:inputText id="idrol" value="#{rolController.selected.idrol}" title="#{myBundle.CreateRolTitle_idrol}" required="true" requiredMessage="#{myBundle.CreateRolRequiredMessage_idrol}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRolLabel_nombrerol}" for="nombrerol" />
+                        <p:inputText id="nombrerol" value="#{rolController.selected.nombrerol}" title="#{myBundle.CreateRolTitle_nombrerol}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRolLabel_descripcionrol}" for="descripcionrol" />
+                        <p:inputText id="descripcionrol" value="#{rolController.selected.descripcionrol}" title="#{myBundle.CreateRolTitle_descripcionrol}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateRolLabel_estadorol}" for="estadorol" />
+                        <p:inputText id="estadorol" value="#{rolController.selected.estadorol}" title="#{myBundle.CreateRolTitle_estadorol}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolController.saveNew}" value="#{myBundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RolCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('RolCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

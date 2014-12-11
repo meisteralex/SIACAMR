@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallepaacCreateDlg" widgetVar="DetallepaacCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDetallepaacTitle}" closeOnEscape="true">
+
+            <h:form id="DetallepaacCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detallepaacController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_detallepaacPK_nocorrelativo}" for="detallepaacPK_nocorrelativo" />
+                        <p:inputText id="detallepaacPK_nocorrelativo" value="#{detallepaacController.selected.detallepaacPK.nocorrelativo}" title="#{myBundle.CreateDetallepaacTitle_detallepaacPK_nocorrelativo}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_detallepaacPK_nocorrelativo}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_fuenterecurso}" for="fuenterecurso" />
+                        <p:inputText id="fuenterecurso" value="#{detallepaacController.selected.fuenterecurso}" title="#{myBundle.CreateDetallepaacTitle_fuenterecurso}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_fuenterecurso}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_formacontratacion}" for="formacontratacion" />
+                        <p:inputText id="formacontratacion" value="#{detallepaacController.selected.formacontratacion}" title="#{myBundle.CreateDetallepaacTitle_formacontratacion}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_formacontratacion}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_nombreprelimproceso}" for="nombreprelimproceso" />
+                        <p:inputText id="nombreprelimproceso" value="#{detallepaacController.selected.nombreprelimproceso}" title="#{myBundle.CreateDetallepaacTitle_nombreprelimproceso}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_nombreprelimproceso}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_descripcionunspsc}" for="descripcionunspsc" />
+                        <p:inputText id="descripcionunspsc" value="#{detallepaacController.selected.descripcionunspsc}" title="#{myBundle.CreateDetallepaacTitle_descripcionunspsc}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_descripcionunspsc}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_codigoobjetopres}" for="codigoobjetopres" />
+                        <p:inputText id="codigoobjetopres" value="#{detallepaacController.selected.codigoobjetopres}" title="#{myBundle.CreateDetallepaacTitle_codigoobjetopres}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_codigoobjetopres}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_mesestimado}" for="mesestimado" />
+                        <p:inputText id="mesestimado" value="#{detallepaacController.selected.mesestimado}" title="#{myBundle.CreateDetallepaacTitle_mesestimado}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_mesestimado}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_montopresupuestado}" for="montopresupuestado" />
+                        <p:inputText id="montopresupuestado" value="#{detallepaacController.selected.montopresupuestado}" title="#{myBundle.CreateDetallepaacTitle_montopresupuestado}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_montopresupuestado}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_codigounspsc}" for="codigounspsc" />
+                        <p:selectOneMenu id="codigounspsc" value="#{detallepaacController.selected.codigounspsc}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_codigounspsc}" converter="unspscConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unspscController.items}"
+                                           var="codigounspscItem"
+                                           itemValue="#{codigounspscItem}"
+                                           itemLabel="#{codigounspscItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallepaacLabel_paac}" for="paac" />
+                        <p:selectOneMenu id="paac" value="#{detallepaacController.selected.paac}" required="true" requiredMessage="#{myBundle.CreateDetallepaacRequiredMessage_paac}" converter="paacConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{paacController.items}"
+                                           var="paacItem"
+                                           itemValue="#{paacItem}"
+                                           itemLabel="#{paacItem.ejerciciofiscal.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallepaacController.saveNew}" value="#{myBundle.Save}" update="display,:DetallepaacListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetallepaacCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetallepaacCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

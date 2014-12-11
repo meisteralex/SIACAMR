@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ListadonecesipaacEditDlg" widgetVar="ListadonecesipaacEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditListadonecesipaacTitle}" closeOnEscape="true">
+
+            <h:form id="ListadonecesipaacEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{listadonecesipaacController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditListadonecesipaacLabel_ejerciciofiscal}" for="ejerciciofiscal" />
+                        <h:outputText id="ejerciciofiscal" value="#{listadonecesipaacController.selected.ejerciciofiscal}" />
+
+                        <p:outputLabel value="#{myBundle.EditListadonecesipaacLabel_nombreinstitucion}" for="nombreinstitucion" />
+                        <p:inputText id="nombreinstitucion" value="#{listadonecesipaacController.selected.nombreinstitucion}" title="#{myBundle.EditListadonecesipaacTitle_nombreinstitucion}" required="true" requiredMessage="#{myBundle.EditListadonecesipaacRequiredMessage_nombreinstitucion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditListadonecesipaacLabel_nombresolicitante}" for="nombresolicitante" />
+                        <p:inputText id="nombresolicitante" value="#{listadonecesipaacController.selected.nombresolicitante}" title="#{myBundle.EditListadonecesipaacTitle_nombresolicitante}" required="true" requiredMessage="#{myBundle.EditListadonecesipaacRequiredMessage_nombresolicitante}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditListadonecesipaacLabel_fechaelaboracion}" for="fechaelaboracion" />
+                        <p:calendar id="fechaelaboracion" pattern="MM/dd/yyyy" value="#{listadonecesipaacController.selected.fechaelaboracion}" title="#{myBundle.EditListadonecesipaacTitle_fechaelaboracion}" required="true" requiredMessage="#{myBundle.EditListadonecesipaacRequiredMessage_fechaelaboracion}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditListadonecesipaacLabel_codigoinstitucion}" for="codigoinstitucion" />
+                        <p:selectOneMenu id="codigoinstitucion" value="#{listadonecesipaacController.selected.codigoinstitucion}" required="true" requiredMessage="#{myBundle.EditListadonecesipaacRequiredMessage_codigoinstitucion}" converter="datosinstitucionalesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{datosinstitucionalesController.items}"
+                                           var="codigoinstitucionItem"
+                                           itemValue="#{codigoinstitucionItem}"
+                                           itemLabel="#{codigoinstitucionItem.codigoinstitucion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{listadonecesipaacController.save}" value="#{myBundle.Save}" update="display,:ListadonecesipaacListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ListadonecesipaacEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('ListadonecesipaacEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

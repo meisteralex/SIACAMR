@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EmpleadoEditDlg" widgetVar="EmpleadoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditEmpleadoTitle}" closeOnEscape="true">
+
+            <h:form id="EmpleadoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{empleadoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditEmpleadoLabel_idempleado}" for="idempleado" />
+                        <h:outputText id="idempleado" value="#{empleadoController.selected.idempleado}" />
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_direccionemp}" for="direccionemp" />
+                        <p:inputText id="direccionemp" value="#{empleadoController.selected.direccionemp}" title="#{myBundle.EditEmpleadoTitle_direccionemp}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_nombreempleado}" for="nombreempleado" />
+                        <p:inputText id="nombreempleado" value="#{empleadoController.selected.nombreempleado}" title="#{myBundle.EditEmpleadoTitle_nombreempleado}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_apellidoempleado}" for="apellidoempleado" />
+                        <p:inputText id="apellidoempleado" value="#{empleadoController.selected.apellidoempleado}" title="#{myBundle.EditEmpleadoTitle_apellidoempleado}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_cargoemp}" for="cargoemp" />
+                        <p:inputText id="cargoemp" value="#{empleadoController.selected.cargoemp}" title="#{myBundle.EditEmpleadoTitle_cargoemp}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_telefonoemp}" for="telefonoemp" />
+                        <p:inputText id="telefonoemp" value="#{empleadoController.selected.telefonoemp}" title="#{myBundle.EditEmpleadoTitle_telefonoemp}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_correoelectronicoemp}" for="correoelectronicoemp" />
+                        <p:inputText id="correoelectronicoemp" value="#{empleadoController.selected.correoelectronicoemp}" title="#{myBundle.EditEmpleadoTitle_correoelectronicoemp}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_observacionesemp}" for="observacionesemp" />
+                        <p:inputText id="observacionesemp" value="#{empleadoController.selected.observacionesemp}" title="#{myBundle.EditEmpleadoTitle_observacionesemp}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditEmpleadoLabel_iduser}" for="iduser" />
+                        <p:selectOneMenu id="iduser" value="#{empleadoController.selected.iduser}"  converter="usuarioConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.items}"
+                                           var="iduserItem"
+                                           itemValue="#{iduserItem}"
+                                           itemLabel="#{iduserItem.iduser.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empleadoController.save}" value="#{myBundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EmpleadoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('EmpleadoEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

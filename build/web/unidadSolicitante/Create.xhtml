@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnidadSolicitanteCreateDlg" widgetVar="UnidadSolicitanteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUnidadSolicitanteTitle}" closeOnEscape="true">
+
+            <h:form id="UnidadSolicitanteCreateForm">
+
+                <h:panelGroup id="display" rendered="#{unidadSolicitanteController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUnidadSolicitanteLabel_idUs}" for="idUs" />
+                        <p:inputText id="idUs" value="#{unidadSolicitanteController.selected.idUs}" title="#{myBundle.CreateUnidadSolicitanteTitle_idUs}" required="true" requiredMessage="#{myBundle.CreateUnidadSolicitanteRequiredMessage_idUs}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUnidadSolicitanteLabel_nombreUnidad}" for="nombreUnidad" />
+                        <p:inputText id="nombreUnidad" value="#{unidadSolicitanteController.selected.nombreUnidad}" title="#{myBundle.CreateUnidadSolicitanteTitle_nombreUnidad}" required="true" requiredMessage="#{myBundle.CreateUnidadSolicitanteRequiredMessage_nombreUnidad}" size="70" maxlength="70"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unidadSolicitanteController.saveNew}" value="#{myBundle.Save}" update="display,:UnidadSolicitanteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UnidadSolicitanteCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('UnidadSolicitanteCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

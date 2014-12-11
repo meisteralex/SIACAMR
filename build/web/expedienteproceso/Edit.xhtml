@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ExpedienteprocesoEditDlg" widgetVar="ExpedienteprocesoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditExpedienteprocesoTitle}" closeOnEscape="true">
+
+            <h:form id="ExpedienteprocesoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{expedienteprocesoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditExpedienteprocesoLabel_codigoproceso}" for="codigoproceso" />
+                        <h:outputText id="codigoproceso" value="#{expedienteprocesoController.selected.codigoproceso}" />
+
+                        <p:outputLabel value="#{myBundle.EditExpedienteprocesoLabel_denominacionproceso}" for="denominacionproceso" />
+                        <p:inputText id="denominacionproceso" value="#{expedienteprocesoController.selected.denominacionproceso}" title="#{myBundle.EditExpedienteprocesoTitle_denominacionproceso}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditExpedienteprocesoLabel_responsableproceso}" for="responsableproceso" />
+                        <p:inputText id="responsableproceso" value="#{expedienteprocesoController.selected.responsableproceso}" title="#{myBundle.EditExpedienteprocesoTitle_responsableproceso}" required="true" requiredMessage="#{myBundle.EditExpedienteprocesoRequiredMessage_responsableproceso}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditExpedienteprocesoLabel_tipoproceso}" for="tipoproceso" />
+                        <p:inputText id="tipoproceso" value="#{expedienteprocesoController.selected.tipoproceso}" title="#{myBundle.EditExpedienteprocesoTitle_tipoproceso}" required="true" requiredMessage="#{myBundle.EditExpedienteprocesoRequiredMessage_tipoproceso}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditExpedienteprocesoLabel_estadoproceso}" for="estadoproceso" />
+                        <p:inputText id="estadoproceso" value="#{expedienteprocesoController.selected.estadoproceso}" title="#{myBundle.EditExpedienteprocesoTitle_estadoproceso}" required="true" requiredMessage="#{myBundle.EditExpedienteprocesoRequiredMessage_estadoproceso}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditExpedienteprocesoLabel_nombreadjudicatario}" for="nombreadjudicatario" />
+                        <p:selectOneMenu id="nombreadjudicatario" value="#{expedienteprocesoController.selected.nombreadjudicatario}"  converter="oferenteConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{oferenteController.items}"
+                                           var="nombreadjudicatarioItem"
+                                           itemValue="#{nombreadjudicatarioItem}"
+                                           itemLabel="#{nombreadjudicatarioItem.nombreoferente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{expedienteprocesoController.save}" value="#{myBundle.Save}" update="display,:ExpedienteprocesoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ExpedienteprocesoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('ExpedienteprocesoEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

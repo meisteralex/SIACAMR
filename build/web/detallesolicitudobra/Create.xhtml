@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallesolicitudobraCreateDlg" widgetVar="DetallesolicitudobraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDetallesolicitudobraTitle}" closeOnEscape="true">
+
+            <h:form id="DetallesolicitudobraCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detallesolicitudobraController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDetallesolicitudobraLabel_idDetalle}" for="idDetalle" />
+                        <p:inputText id="idDetalle" value="#{detallesolicitudobraController.selected.idDetalle}" title="#{myBundle.CreateDetallesolicitudobraTitle_idDetalle}" required="true" requiredMessage="#{myBundle.CreateDetallesolicitudobraRequiredMessage_idDetalle}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallesolicitudobraLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{detallesolicitudobraController.selected.cantidad}" title="#{myBundle.CreateDetallesolicitudobraTitle_cantidad}" required="true" requiredMessage="#{myBundle.CreateDetallesolicitudobraRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallesolicitudobraLabel_unidadmedida}" for="unidadmedida" />
+                        <p:inputText id="unidadmedida" value="#{detallesolicitudobraController.selected.unidadmedida}" title="#{myBundle.CreateDetallesolicitudobraTitle_unidadmedida}" required="true" requiredMessage="#{myBundle.CreateDetallesolicitudobraRequiredMessage_unidadmedida}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallesolicitudobraLabel_obrasolicitada}" for="obrasolicitada" />
+                        <p:inputText id="obrasolicitada" value="#{detallesolicitudobraController.selected.obrasolicitada}" title="#{myBundle.CreateDetallesolicitudobraTitle_obrasolicitada}" required="true" requiredMessage="#{myBundle.CreateDetallesolicitudobraRequiredMessage_obrasolicitada}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallesolicitudobraLabel_especifictecnicas}" for="especifictecnicas" />
+                        <p:inputText id="especifictecnicas" value="#{detallesolicitudobraController.selected.especifictecnicas}" title="#{myBundle.CreateDetallesolicitudobraTitle_especifictecnicas}" required="true" requiredMessage="#{myBundle.CreateDetallesolicitudobraRequiredMessage_especifictecnicas}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallesolicitudobraLabel_codigounspsc}" for="codigounspsc" />
+                        <p:selectOneMenu id="codigounspsc" value="#{detallesolicitudobraController.selected.codigounspsc}" required="true" requiredMessage="#{myBundle.CreateDetallesolicitudobraRequiredMessage_codigounspsc}" converter="unspscConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unspscController.items}"
+                                           var="codigounspscItem"
+                                           itemValue="#{codigounspscItem}"
+                                           itemLabel="#{codigounspscItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallesolicitudobraLabel_idSolicitud}" for="idSolicitud" />
+                        <p:selectOneMenu id="idSolicitud" value="#{detallesolicitudobraController.selected.idSolicitud}"  converter="solicitudobraConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{solicitudobraController.items}"
+                                           var="idSolicitudItem"
+                                           itemValue="#{idSolicitudItem}"
+                                           itemLabel="#{idSolicitudItem.idSolicitud.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallesolicitudobraController.saveNew}" value="#{myBundle.Save}" update="display,:DetallesolicitudobraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetallesolicitudobraCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetallesolicitudobraCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

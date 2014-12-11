@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_iduser}" for="iduser" />
+                        <p:inputText id="iduser" value="#{usuarioController.selected.iduser}" title="#{myBundle.CreateUsuarioTitle_iduser}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_iduser}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_nombreuser}" for="nombreuser" />
+                        <p:inputText id="nombreuser" value="#{usuarioController.selected.nombreuser}" title="#{myBundle.CreateUsuarioTitle_nombreuser}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_passworduser}" for="passworduser" />
+                        <p:inputText id="passworduser" value="#{usuarioController.selected.passworduser}" title="#{myBundle.CreateUsuarioTitle_passworduser}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_fechauser}" for="fechauser" />
+                        <p:calendar id="fechauser" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuarioController.selected.fechauser}" title="#{myBundle.CreateUsuarioTitle_fechauser}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_estadouser}" for="estadouser" />
+                        <p:inputText id="estadouser" value="#{usuarioController.selected.estadouser}" title="#{myBundle.CreateUsuarioTitle_estadouser}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_idrol}" for="idrol" />
+                        <p:selectOneMenu id="idrol" value="#{usuarioController.selected.idrol}"  converter="rolConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rolController.items}"
+                                           var="idrolItem"
+                                           itemValue="#{idrolItem}"
+                                           itemLabel="#{idrolItem.descripcionrol.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('UsuarioCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

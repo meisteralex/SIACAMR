@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="OrdencompraEditDlg" widgetVar="OrdencompraEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditOrdencompraTitle}" closeOnEscape="true">
+
+            <h:form id="OrdencompraEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ordencompraController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditOrdencompraLabel_noorden}" for="noorden" />
+                        <h:outputText id="noorden" value="#{ordencompraController.selected.noorden}" />
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{ordencompraController.selected.fecha}" title="#{myBundle.EditOrdencompraTitle_fecha}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_fecha}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_nombresuministrante}" for="nombresuministrante" />
+                        <p:inputText id="nombresuministrante" value="#{ordencompraController.selected.nombresuministrante}" title="#{myBundle.EditOrdencompraTitle_nombresuministrante}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_nombresuministrante}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_nitsuministrante}" for="nitsuministrante" />
+                        <p:inputText id="nitsuministrante" value="#{ordencompraController.selected.nitsuministrante}" title="#{myBundle.EditOrdencompraTitle_nitsuministrante}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_nitsuministrante}" size="17" maxlength="17"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_direccionsuministrante}" for="direccionsuministrante" />
+                        <p:inputText id="direccionsuministrante" value="#{ordencompraController.selected.direccionsuministrante}" title="#{myBundle.EditOrdencompraTitle_direccionsuministrante}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_direccionsuministrante}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_montototal}" for="montototal" />
+                        <p:inputText id="montototal" value="#{ordencompraController.selected.montototal}" title="#{myBundle.EditOrdencompraTitle_montototal}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_montototal}"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_totalletras}" for="totalletras" />
+                        <p:inputText id="totalletras" value="#{ordencompraController.selected.totalletras}" title="#{myBundle.EditOrdencompraTitle_totalletras}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_totalletras}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_observaciones}" for="observaciones" />
+                        <p:inputText id="observaciones" value="#{ordencompraController.selected.observaciones}" title="#{myBundle.EditOrdencompraTitle_observaciones}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_lugarentrega}" for="lugarentrega" />
+                        <p:inputText id="lugarentrega" value="#{ordencompraController.selected.lugarentrega}" title="#{myBundle.EditOrdencompraTitle_lugarentrega}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_lugarentrega}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_fechaentrega}" for="fechaentrega" />
+                        <p:calendar id="fechaentrega" pattern="MM/dd/yyyy" value="#{ordencompraController.selected.fechaentrega}" title="#{myBundle.EditOrdencompraTitle_fechaentrega}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_fechaentrega}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_nombreadminorden}" for="nombreadminorden" />
+                        <p:inputText id="nombreadminorden" value="#{ordencompraController.selected.nombreadminorden}" title="#{myBundle.EditOrdencompraTitle_nombreadminorden}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_nombreadminorden}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_teladminorden}" for="teladminorden" />
+                        <p:inputText id="teladminorden" value="#{ordencompraController.selected.teladminorden}" title="#{myBundle.EditOrdencompraTitle_teladminorden}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_teladminorden}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_emailadminorden}" for="emailadminorden" />
+                        <p:inputText id="emailadminorden" value="#{ordencompraController.selected.emailadminorden}" title="#{myBundle.EditOrdencompraTitle_emailadminorden}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_emailadminorden}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditOrdencompraLabel_codigoinstitucion}" for="codigoinstitucion" />
+                        <p:selectOneMenu id="codigoinstitucion" value="#{ordencompraController.selected.codigoinstitucion}" required="true" requiredMessage="#{myBundle.EditOrdencompraRequiredMessage_codigoinstitucion}" converter="datosinstitucionalesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{datosinstitucionalesController.items}"
+                                           var="codigoinstitucionItem"
+                                           itemValue="#{codigoinstitucionItem}"
+                                           itemLabel="#{codigoinstitucionItem.codigoinstitucion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordencompraController.save}" value="#{myBundle.Save}" update="display,:OrdencompraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdencompraEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('OrdencompraEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

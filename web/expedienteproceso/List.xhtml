@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ExpedienteprocesoListForm">
+
+        <p:panel header="#{myBundle.ListExpedienteprocesoTitle}">
+            <p:contextMenu id="ExpedienteprocesoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ExpedienteprocesoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ExpedienteprocesoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ExpedienteprocesoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ExpedienteprocesoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ExpedienteprocesoMenuItem_adendaCollection}" icon="ui-icon-search"  action="#{expedienteprocesoController.navigateAdendaCollection}" disabled="#{empty expedienteprocesoController.selected.adendaCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ExpedienteprocesoMenuItem_detalleficharetirobasesCollection}" icon="ui-icon-search"  action="#{expedienteprocesoController.navigateDetalleficharetirobasesCollection}" disabled="#{empty expedienteprocesoController.selected.detalleficharetirobasesCollection}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ExpedienteprocesoMenuItem_nombreadjudicatario}" icon="ui-icon-search"  actionListener="#{expedienteprocesoController.prepareNombreadjudicatario}" update=":OferenteViewForm" oncomplete="PF('OferenteViewDialog').show()" disabled="#{empty expedienteprocesoController.selected.nombreadjudicatario}"/>  
+                <p:menuitem value="#{myBundle.ExpedienteprocesoMenuItem_ofertaCollection}" icon="ui-icon-search"  action="#{expedienteprocesoController.navigateOfertaCollection}" disabled="#{empty expedienteprocesoController.selected.ofertaCollection}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{expedienteprocesoController.items}"
+                         var="item"
+                         rowKey="#{item.codigoproceso}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{expedienteprocesoController.selected}">
+
+                <p:ajax event="rowSelect"   update=":ExpedienteprocesoListForm:createButton :ExpedienteprocesoListForm:viewButton :ExpedienteprocesoListForm:editButton :ExpedienteprocesoListForm:deleteButton :ExpedienteprocesoListForm:ExpedienteprocesoDataTableContextMenu" listener="#{expedienteprocesoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":ExpedienteprocesoListForm:createButton :ExpedienteprocesoListForm:viewButton :ExpedienteprocesoListForm:editButton :ExpedienteprocesoListForm:deleteButton :ExpedienteprocesoListForm:ExpedienteprocesoDataTableContextMenu" listener="#{expedienteprocesoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ExpedienteprocesoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.codigoproceso}" filterBy="#{item.codigoproceso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListExpedienteprocesoTitle_codigoproceso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigoproceso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.denominacionproceso}" filterBy="#{item.denominacionproceso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListExpedienteprocesoTitle_denominacionproceso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.denominacionproceso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.responsableproceso}" filterBy="#{item.responsableproceso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListExpedienteprocesoTitle_responsableproceso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.responsableproceso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tipoproceso}" filterBy="#{item.tipoproceso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListExpedienteprocesoTitle_tipoproceso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipoproceso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estadoproceso}" filterBy="#{item.estadoproceso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListExpedienteprocesoTitle_estadoproceso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estadoproceso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreadjudicatario.nombreoferente}" filterBy="#{item.nombreadjudicatario.nombreoferente}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListExpedienteprocesoTitle_nombreadjudicatario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreadjudicatario.nombreoferente}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{expedienteprocesoController.prepareCreate}" update=":ExpedienteprocesoCreateForm" oncomplete="PF('ExpedienteprocesoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ExpedienteprocesoViewForm" oncomplete="PF('ExpedienteprocesoViewDialog').show()" disabled="#{empty expedienteprocesoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ExpedienteprocesoEditForm" oncomplete="PF('ExpedienteprocesoEditDialog').show()" disabled="#{empty expedienteprocesoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{expedienteprocesoController.delete}" update=":growl,datalist" disabled="#{empty expedienteprocesoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleofertaViewDlg" widgetVar="DetalleofertaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDetalleofertaTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleofertaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{detalleofertaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDetalleofertaLabel_detalleofertaPK_rubro}"/>
+                        <h:outputText value="#{detalleofertaController.selected.detalleofertaPK.rubro}" title="#{myBundle.ViewDetalleofertaTitle_detalleofertaPK_rubro}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleofertaLabel_marcaofertada}"/>
+                        <h:outputText value="#{detalleofertaController.selected.marcaofertada}" title="#{myBundle.ViewDetalleofertaTitle_marcaofertada}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleofertaLabel_preciounitario}"/>
+                        <h:outputText value="#{detalleofertaController.selected.preciounitario}" title="#{myBundle.ViewDetalleofertaTitle_preciounitario}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleofertaLabel_total}"/>
+                        <h:outputText value="#{detalleofertaController.selected.total}" title="#{myBundle.ViewDetalleofertaTitle_total}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleofertaLabel_montogarantia}"/>
+                        <h:outputText value="#{detalleofertaController.selected.montogarantia}" title="#{myBundle.ViewDetalleofertaTitle_montogarantia}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleofertaLabel_oferta}"/>
+                        <h:outputText value="#{detalleofertaController.selected.oferta.ofertaPK}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DetalleofertaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

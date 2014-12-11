@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DatosinstitucionalesEditDlg" widgetVar="DatosinstitucionalesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDatosinstitucionalesTitle}" closeOnEscape="true">
+
+            <h:form id="DatosinstitucionalesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{datosinstitucionalesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDatosinstitucionalesLabel_codigoinstitucion}" for="codigoinstitucion" />
+                        <h:outputText id="codigoinstitucion" value="#{datosinstitucionalesController.selected.codigoinstitucion}" />
+
+                        <p:outputLabel value="#{myBundle.EditDatosinstitucionalesLabel_nombreinstitucion}" for="nombreinstitucion" />
+                        <p:inputText id="nombreinstitucion" value="#{datosinstitucionalesController.selected.nombreinstitucion}" title="#{myBundle.EditDatosinstitucionalesTitle_nombreinstitucion}" required="true" requiredMessage="#{myBundle.EditDatosinstitucionalesRequiredMessage_nombreinstitucion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditDatosinstitucionalesLabel_direccioninstitucion}" for="direccioninstitucion" />
+                        <p:inputText id="direccioninstitucion" value="#{datosinstitucionalesController.selected.direccioninstitucion}" title="#{myBundle.EditDatosinstitucionalesTitle_direccioninstitucion}" required="true" requiredMessage="#{myBundle.EditDatosinstitucionalesRequiredMessage_direccioninstitucion}" size="50" maxlength="50"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{datosinstitucionalesController.save}" value="#{myBundle.Save}" update="display,:DatosinstitucionalesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DatosinstitucionalesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DatosinstitucionalesEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallepaacViewDlg" widgetVar="DetallepaacViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDetallepaacTitle}" closeOnEscape="true">
+
+            <h:form id="DetallepaacViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{detallepaacController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_detallepaacPK_nocorrelativo}"/>
+                        <h:outputText value="#{detallepaacController.selected.detallepaacPK.nocorrelativo}" title="#{myBundle.ViewDetallepaacTitle_detallepaacPK_nocorrelativo}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_fuenterecurso}"/>
+                        <h:outputText value="#{detallepaacController.selected.fuenterecurso}" title="#{myBundle.ViewDetallepaacTitle_fuenterecurso}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_formacontratacion}"/>
+                        <h:outputText value="#{detallepaacController.selected.formacontratacion}" title="#{myBundle.ViewDetallepaacTitle_formacontratacion}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_nombreprelimproceso}"/>
+                        <h:outputText value="#{detallepaacController.selected.nombreprelimproceso}" title="#{myBundle.ViewDetallepaacTitle_nombreprelimproceso}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_descripcionunspsc}"/>
+                        <h:outputText value="#{detallepaacController.selected.descripcionunspsc}" title="#{myBundle.ViewDetallepaacTitle_descripcionunspsc}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_codigoobjetopres}"/>
+                        <h:outputText value="#{detallepaacController.selected.codigoobjetopres}" title="#{myBundle.ViewDetallepaacTitle_codigoobjetopres}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_mesestimado}"/>
+                        <h:outputText value="#{detallepaacController.selected.mesestimado}" title="#{myBundle.ViewDetallepaacTitle_mesestimado}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_montopresupuestado}"/>
+                        <h:outputText value="#{detallepaacController.selected.montopresupuestado}" title="#{myBundle.ViewDetallepaacTitle_montopresupuestado}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_codigounspsc}"/>
+                        <h:outputText value="#{detallepaacController.selected.codigounspsc.descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallepaacLabel_paac}"/>
+                        <h:outputText value="#{detallepaacController.selected.paac.ejerciciofiscal}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DetallepaacViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

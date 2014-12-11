@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OferenteCreateDlg" widgetVar="OferenteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateOferenteTitle}" closeOnEscape="true">
+
+            <h:form id="OferenteCreateForm">
+
+                <h:panelGroup id="display" rendered="#{oferenteController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateOferenteLabel_nombreoferente}" for="nombreoferente" />
+                        <p:inputText id="nombreoferente" value="#{oferenteController.selected.nombreoferente}" title="#{myBundle.CreateOferenteTitle_nombreoferente}" required="true" requiredMessage="#{myBundle.CreateOferenteRequiredMessage_nombreoferente}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOferenteLabel_telefonooferente}" for="telefonooferente" />
+                        <p:inputText id="telefonooferente" value="#{oferenteController.selected.telefonooferente}" title="#{myBundle.CreateOferenteTitle_telefonooferente}" required="true" requiredMessage="#{myBundle.CreateOferenteRequiredMessage_telefonooferente}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOferenteLabel_faxoferente}" for="faxoferente" />
+                        <p:inputText id="faxoferente" value="#{oferenteController.selected.faxoferente}" title="#{myBundle.CreateOferenteTitle_faxoferente}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOferenteLabel_emailoferente}" for="emailoferente" />
+                        <p:inputText id="emailoferente" value="#{oferenteController.selected.emailoferente}" title="#{myBundle.CreateOferenteTitle_emailoferente}" required="true" requiredMessage="#{myBundle.CreateOferenteRequiredMessage_emailoferente}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOferenteLabel_tiposervicio}" for="tiposervicio" />
+                        <p:inputText id="tiposervicio" value="#{oferenteController.selected.tiposervicio}" title="#{myBundle.CreateOferenteTitle_tiposervicio}" required="true" requiredMessage="#{myBundle.CreateOferenteRequiredMessage_tiposervicio}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOferenteLabel_calificacion}" for="calificacion" />
+                        <p:inputText id="calificacion" value="#{oferenteController.selected.calificacion}" title="#{myBundle.CreateOferenteTitle_calificacion}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOferenteLabel_estadooferente}" for="estadooferente" />
+                        <p:inputText id="estadooferente" value="#{oferenteController.selected.estadooferente}" title="#{myBundle.CreateOferenteTitle_estadooferente}" required="true" requiredMessage="#{myBundle.CreateOferenteRequiredMessage_estadooferente}" size="10" maxlength="10"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{oferenteController.saveNew}" value="#{myBundle.Save}" update="display,:OferenteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OferenteCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('OferenteCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

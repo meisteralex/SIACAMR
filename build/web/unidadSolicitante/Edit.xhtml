@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UnidadSolicitanteEditDlg" widgetVar="UnidadSolicitanteEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUnidadSolicitanteTitle}" closeOnEscape="true">
+
+            <h:form id="UnidadSolicitanteEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{unidadSolicitanteController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditUnidadSolicitanteLabel_idUs}" for="idUs" />
+                        <h:outputText id="idUs" value="#{unidadSolicitanteController.selected.idUs}" />
+
+                        <p:outputLabel value="#{myBundle.EditUnidadSolicitanteLabel_nombreUnidad}" for="nombreUnidad" />
+                        <p:inputText id="nombreUnidad" value="#{unidadSolicitanteController.selected.nombreUnidad}" title="#{myBundle.EditUnidadSolicitanteTitle_nombreUnidad}" required="true" requiredMessage="#{myBundle.EditUnidadSolicitanteRequiredMessage_nombreUnidad}" size="70" maxlength="70"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unidadSolicitanteController.save}" value="#{myBundle.Save}" update="display,:UnidadSolicitanteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UnidadSolicitanteEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('UnidadSolicitanteEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

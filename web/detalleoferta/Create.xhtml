@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleofertaCreateDlg" widgetVar="DetalleofertaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDetalleofertaTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleofertaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detalleofertaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleofertaLabel_detalleofertaPK_rubro}" for="detalleofertaPK_rubro" />
+                        <p:inputText id="detalleofertaPK_rubro" value="#{detalleofertaController.selected.detalleofertaPK.rubro}" title="#{myBundle.CreateDetalleofertaTitle_detalleofertaPK_rubro}" required="true" requiredMessage="#{myBundle.CreateDetalleofertaRequiredMessage_detalleofertaPK_rubro}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleofertaLabel_marcaofertada}" for="marcaofertada" />
+                        <p:inputText id="marcaofertada" value="#{detalleofertaController.selected.marcaofertada}" title="#{myBundle.CreateDetalleofertaTitle_marcaofertada}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleofertaLabel_preciounitario}" for="preciounitario" />
+                        <p:inputText id="preciounitario" value="#{detalleofertaController.selected.preciounitario}" title="#{myBundle.CreateDetalleofertaTitle_preciounitario}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleofertaLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{detalleofertaController.selected.total}" title="#{myBundle.CreateDetalleofertaTitle_total}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleofertaLabel_montogarantia}" for="montogarantia" />
+                        <p:inputText id="montogarantia" value="#{detalleofertaController.selected.montogarantia}" title="#{myBundle.CreateDetalleofertaTitle_montogarantia}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalleofertaLabel_oferta}" for="oferta" />
+                        <p:selectOneMenu id="oferta" value="#{detalleofertaController.selected.oferta}" required="true" requiredMessage="#{myBundle.CreateDetalleofertaRequiredMessage_oferta}" converter="ofertaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ofertaController.items}"
+                                           var="ofertaItem"
+                                           itemValue="#{ofertaItem}"
+                                           itemLabel="#{ofertaItem.ofertaPK.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleofertaController.saveNew}" value="#{myBundle.Save}" update="display,:DetalleofertaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetalleofertaCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetalleofertaCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

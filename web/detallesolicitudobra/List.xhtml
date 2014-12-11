@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetallesolicitudobraListForm">
+
+        <p:panel header="#{myBundle.ListDetallesolicitudobraTitle}">
+            <p:contextMenu id="DetallesolicitudobraDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DetallesolicitudobraListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DetallesolicitudobraListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DetallesolicitudobraListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DetallesolicitudobraListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DetallesolicitudobraMenuItem_codigounspsc}" icon="ui-icon-search"  actionListener="#{detallesolicitudobraController.prepareCodigounspsc}" update=":UnspscViewForm" oncomplete="PF('UnspscViewDialog').show()" disabled="#{empty detallesolicitudobraController.selected.codigounspsc}"/>  
+                <p:menuitem value="#{myBundle.DetallesolicitudobraMenuItem_idSolicitud}" icon="ui-icon-search"  actionListener="#{detallesolicitudobraController.prepareIdSolicitud}" update=":SolicitudobraViewForm" oncomplete="PF('SolicitudobraViewDialog').show()" disabled="#{empty detallesolicitudobraController.selected.idSolicitud}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detallesolicitudobraController.items}"
+                         var="item"
+                         rowKey="#{item.idDetalle}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detallesolicitudobraController.selected}">
+
+                <p:ajax event="rowSelect"   update=":DetallesolicitudobraListForm:createButton :DetallesolicitudobraListForm:viewButton :DetallesolicitudobraListForm:editButton :DetallesolicitudobraListForm:deleteButton :DetallesolicitudobraListForm:DetallesolicitudobraDataTableContextMenu" listener="#{detallesolicitudobraController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":DetallesolicitudobraListForm:createButton :DetallesolicitudobraListForm:viewButton :DetallesolicitudobraListForm:editButton :DetallesolicitudobraListForm:deleteButton :DetallesolicitudobraListForm:DetallesolicitudobraDataTableContextMenu" listener="#{detallesolicitudobraController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetallesolicitudobraListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idDetalle}" filterBy="#{item.idDetalle}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallesolicitudobraTitle_idDetalle}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idDetalle}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidad}" filterBy="#{item.cantidad}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallesolicitudobraTitle_cantidad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.unidadmedida}" filterBy="#{item.unidadmedida}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallesolicitudobraTitle_unidadmedida}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unidadmedida}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.obrasolicitada}" filterBy="#{item.obrasolicitada}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallesolicitudobraTitle_obrasolicitada}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.obrasolicitada}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.especifictecnicas}" filterBy="#{item.especifictecnicas}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallesolicitudobraTitle_especifictecnicas}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.especifictecnicas}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.codigounspsc.descripcion}" filterBy="#{item.codigounspsc.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallesolicitudobraTitle_codigounspsc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigounspsc.descripcion}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.idSolicitud.idSolicitud}" filterBy="#{item.idSolicitud.idSolicitud}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallesolicitudobraTitle_idSolicitud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idSolicitud.idSolicitud}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{detallesolicitudobraController.prepareCreate}" update=":DetallesolicitudobraCreateForm" oncomplete="PF('DetallesolicitudobraCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DetallesolicitudobraViewForm" oncomplete="PF('DetallesolicitudobraViewDialog').show()" disabled="#{empty detallesolicitudobraController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DetallesolicitudobraEditForm" oncomplete="PF('DetallesolicitudobraEditDialog').show()" disabled="#{empty detallesolicitudobraController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{detallesolicitudobraController.delete}" update=":growl,datalist" disabled="#{empty detallesolicitudobraController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

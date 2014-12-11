@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="OfertaEditDlg" widgetVar="OfertaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditOfertaTitle}" closeOnEscape="true">
+
+            <h:form id="OfertaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ofertaController.selected != null}">
+
+                        <p:outputLabel value="#{myBundle.EditOfertaLabel_estadooferta}" for="estadooferta" />
+                        <p:inputText id="estadooferta" value="#{ofertaController.selected.estadooferta}" title="#{myBundle.EditOfertaTitle_estadooferta}" required="true" requiredMessage="#{myBundle.EditOfertaRequiredMessage_estadooferta}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditOfertaLabel_montooferta}" for="montooferta" />
+                        <p:inputText id="montooferta" value="#{ofertaController.selected.montooferta}" title="#{myBundle.EditOfertaTitle_montooferta}" required="true" requiredMessage="#{myBundle.EditOfertaRequiredMessage_montooferta}"/>
+
+
+                        <h:outputLabel value="#{myBundle.EditOfertaLabel_oferente}" for="oferente" />
+                        <h:outputText id="oferente" value="#{ofertaController.selected.oferente}" />
+
+
+                        <h:outputLabel value="#{myBundle.EditOfertaLabel_expedienteproceso}" for="expedienteproceso" />
+                        <h:outputText id="expedienteproceso" value="#{ofertaController.selected.expedienteproceso}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ofertaController.save}" value="#{myBundle.Save}" update="display,:OfertaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OfertaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('OfertaEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

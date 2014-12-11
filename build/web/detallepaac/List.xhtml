@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetallepaacListForm">
+
+        <p:panel header="#{myBundle.ListDetallepaacTitle}">
+            <p:contextMenu id="DetallepaacDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DetallepaacListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DetallepaacListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DetallepaacListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DetallepaacListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DetallepaacMenuItem_codigounspsc}" icon="ui-icon-search"  actionListener="#{detallepaacController.prepareCodigounspsc}" update=":UnspscViewForm" oncomplete="PF('UnspscViewDialog').show()" disabled="#{empty detallepaacController.selected.codigounspsc}"/>  
+                <p:menuitem value="#{myBundle.DetallepaacMenuItem_paac}" icon="ui-icon-search"  actionListener="#{detallepaacController.preparePaac}" update=":PaacViewForm" oncomplete="PF('PaacViewDialog').show()" disabled="#{empty detallepaacController.selected.paac}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detallepaacController.items}"
+                         var="item"
+                         rowKey="#{item.detallepaacPK}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detallepaacController.selected}">
+
+                <p:ajax event="rowSelect"   update=":DetallepaacListForm:createButton :DetallepaacListForm:viewButton :DetallepaacListForm:editButton :DetallepaacListForm:deleteButton :DetallepaacListForm:DetallepaacDataTableContextMenu" listener="#{detallepaacController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":DetallepaacListForm:createButton :DetallepaacListForm:viewButton :DetallepaacListForm:editButton :DetallepaacListForm:deleteButton :DetallepaacListForm:DetallepaacDataTableContextMenu" listener="#{detallepaacController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetallepaacListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.detallepaacPK.nocorrelativo}" filterBy="#{item.detallepaacPK.nocorrelativo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallepaacTitle_detallepaacPK_nocorrelativo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.detallepaacPK.nocorrelativo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fuenterecurso}" filterBy="#{item.fuenterecurso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallepaacTitle_fuenterecurso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fuenterecurso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.formacontratacion}" filterBy="#{item.formacontratacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallepaacTitle_formacontratacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formacontratacion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreprelimproceso}" filterBy="#{item.nombreprelimproceso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallepaacTitle_nombreprelimproceso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreprelimproceso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcionunspsc}" filterBy="#{item.descripcionunspsc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallepaacTitle_descripcionunspsc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcionunspsc}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.codigoobjetopres}" filterBy="#{item.codigoobjetopres}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallepaacTitle_codigoobjetopres}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigoobjetopres}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.mesestimado}" filterBy="#{item.mesestimado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallepaacTitle_mesestimado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.mesestimado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.montopresupuestado}" filterBy="#{item.montopresupuestado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallepaacTitle_montopresupuestado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.montopresupuestado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.codigounspsc.descripcion}" filterBy="#{item.codigounspsc.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallepaacTitle_codigounspsc}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codigounspsc.descripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.paac.ejerciciofiscal}" filterBy="#{item.paac.ejerciciofiscal}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallepaacTitle_paac}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.paac.ejerciciofiscal}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{detallepaacController.prepareCreate}" update=":DetallepaacCreateForm" oncomplete="PF('DetallepaacCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DetallepaacViewForm" oncomplete="PF('DetallepaacViewDialog').show()" disabled="#{empty detallepaacController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DetallepaacEditForm" oncomplete="PF('DetallepaacEditDialog').show()" disabled="#{empty detallepaacController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{detallepaacController.delete}" update=":growl,datalist" disabled="#{empty detallepaacController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

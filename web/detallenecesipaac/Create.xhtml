@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallenecesipaacCreateDlg" widgetVar="DetallenecesipaacCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDetallenecesipaacTitle}" closeOnEscape="true">
+
+            <h:form id="DetallenecesipaacCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detallenecesipaacController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_detallenecesipaacPK_nocorrelativo}" for="detallenecesipaacPK_nocorrelativo" />
+                        <p:inputText id="detallenecesipaacPK_nocorrelativo" value="#{detallenecesipaacController.selected.detallenecesipaacPK.nocorrelativo}" title="#{myBundle.CreateDetallenecesipaacTitle_detallenecesipaacPK_nocorrelativo}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_detallenecesipaacPK_nocorrelativo}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_fuenterecurso}" for="fuenterecurso" />
+                        <p:inputText id="fuenterecurso" value="#{detallenecesipaacController.selected.fuenterecurso}" title="#{myBundle.CreateDetallenecesipaacTitle_fuenterecurso}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_fuenterecurso}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_descripcionunspsc}" for="descripcionunspsc" />
+                        <p:inputText id="descripcionunspsc" value="#{detallenecesipaacController.selected.descripcionunspsc}" title="#{myBundle.CreateDetallenecesipaacTitle_descripcionunspsc}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_descripcionunspsc}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_cantidadproyectada}" for="cantidadproyectada" />
+                        <p:inputText id="cantidadproyectada" value="#{detallenecesipaacController.selected.cantidadproyectada}" title="#{myBundle.CreateDetallenecesipaacTitle_cantidadproyectada}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_cantidadproyectada}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_unidadmedida}" for="unidadmedida" />
+                        <p:inputText id="unidadmedida" value="#{detallenecesipaacController.selected.unidadmedida}" title="#{myBundle.CreateDetallenecesipaacTitle_unidadmedida}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_unidadmedida}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_preciounitario}" for="preciounitario" />
+                        <p:inputText id="preciounitario" value="#{detallenecesipaacController.selected.preciounitario}" title="#{myBundle.CreateDetallenecesipaacTitle_preciounitario}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_preciounitario}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_preciototal}" for="preciototal" />
+                        <p:inputText id="preciototal" value="#{detallenecesipaacController.selected.preciototal}" title="#{myBundle.CreateDetallenecesipaacTitle_preciototal}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_preciototal}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_mesesperado}" for="mesesperado" />
+                        <p:inputText id="mesesperado" value="#{detallenecesipaacController.selected.mesesperado}" title="#{myBundle.CreateDetallenecesipaacTitle_mesesperado}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_mesesperado}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_codigounspsc}" for="codigounspsc" />
+                        <p:selectOneMenu id="codigounspsc" value="#{detallenecesipaacController.selected.codigounspsc}"  converter="unspscConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unspscController.items}"
+                                           var="codigounspscItem"
+                                           itemValue="#{codigounspscItem}"
+                                           itemLabel="#{codigounspscItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetallenecesipaacLabel_listadonecesipaac}" for="listadonecesipaac" />
+                        <p:selectOneMenu id="listadonecesipaac" value="#{detallenecesipaacController.selected.listadonecesipaac}" required="true" requiredMessage="#{myBundle.CreateDetallenecesipaacRequiredMessage_listadonecesipaac}" converter="listadonecesipaacConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{listadonecesipaacController.items}"
+                                           var="listadonecesipaacItem"
+                                           itemValue="#{listadonecesipaacItem}"
+                                           itemLabel="#{listadonecesipaacItem.ejerciciofiscal.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallenecesipaacController.saveNew}" value="#{myBundle.Save}" update="display,:DetallenecesipaacListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetallenecesipaacCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetallenecesipaacCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

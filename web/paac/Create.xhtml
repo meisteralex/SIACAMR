@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaacCreateDlg" widgetVar="PaacCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePaacTitle}" closeOnEscape="true">
+
+            <h:form id="PaacCreateForm">
+
+                <h:panelGroup id="display" rendered="#{paacController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePaacLabel_ejerciciofiscal}" for="ejerciciofiscal" />
+                        <p:inputText id="ejerciciofiscal" value="#{paacController.selected.ejerciciofiscal}" title="#{myBundle.CreatePaacTitle_ejerciciofiscal}" required="true" requiredMessage="#{myBundle.CreatePaacRequiredMessage_ejerciciofiscal}" size="4" maxlength="4"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaacLabel_nombreinstitucion}" for="nombreinstitucion" />
+                        <p:inputText id="nombreinstitucion" value="#{paacController.selected.nombreinstitucion}" title="#{myBundle.CreatePaacTitle_nombreinstitucion}" required="true" requiredMessage="#{myBundle.CreatePaacRequiredMessage_nombreinstitucion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaacLabel_fechaelaboracion}" for="fechaelaboracion" />
+                        <p:calendar id="fechaelaboracion" pattern="MM/dd/yyyy" value="#{paacController.selected.fechaelaboracion}" title="#{myBundle.CreatePaacTitle_fechaelaboracion}" required="true" requiredMessage="#{myBundle.CreatePaacRequiredMessage_fechaelaboracion}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaacLabel_version}" for="version" />
+                        <p:inputText id="version" value="#{paacController.selected.version}" title="#{myBundle.CreatePaacTitle_version}" required="true" requiredMessage="#{myBundle.CreatePaacRequiredMessage_version}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaacLabel_correlativomodificacion}" for="correlativomodificacion" />
+                        <p:inputText id="correlativomodificacion" value="#{paacController.selected.correlativomodificacion}" title="#{myBundle.CreatePaacTitle_correlativomodificacion}"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePaacLabel_codigoinstitucion}" for="codigoinstitucion" />
+                        <p:selectOneMenu id="codigoinstitucion" value="#{paacController.selected.codigoinstitucion}" required="true" requiredMessage="#{myBundle.CreatePaacRequiredMessage_codigoinstitucion}" converter="datosinstitucionalesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{datosinstitucionalesController.items}"
+                                           var="codigoinstitucionItem"
+                                           itemValue="#{codigoinstitucionItem}"
+                                           itemLabel="#{codigoinstitucionItem.codigoinstitucion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paacController.saveNew}" value="#{myBundle.Save}" update="display,:PaacListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaacCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('PaacCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

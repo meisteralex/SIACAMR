@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RolEditDlg" widgetVar="RolEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRolTitle}" closeOnEscape="true">
+
+            <h:form id="RolEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{rolController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRolLabel_idrol}" for="idrol" />
+                        <h:outputText id="idrol" value="#{rolController.selected.idrol}" />
+
+                        <p:outputLabel value="#{myBundle.EditRolLabel_nombrerol}" for="nombrerol" />
+                        <p:inputText id="nombrerol" value="#{rolController.selected.nombrerol}" title="#{myBundle.EditRolTitle_nombrerol}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditRolLabel_descripcionrol}" for="descripcionrol" />
+                        <p:inputText id="descripcionrol" value="#{rolController.selected.descripcionrol}" title="#{myBundle.EditRolTitle_descripcionrol}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditRolLabel_estadorol}" for="estadorol" />
+                        <p:inputText id="estadorol" value="#{rolController.selected.estadorol}" title="#{myBundle.EditRolTitle_estadorol}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolController.save}" value="#{myBundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RolEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('RolEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

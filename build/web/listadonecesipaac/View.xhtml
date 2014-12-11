@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ListadonecesipaacViewDlg" widgetVar="ListadonecesipaacViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewListadonecesipaacTitle}" closeOnEscape="true">
+
+            <h:form id="ListadonecesipaacViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{listadonecesipaacController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewListadonecesipaacLabel_ejerciciofiscal}"/>
+                        <h:outputText value="#{listadonecesipaacController.selected.ejerciciofiscal}" title="#{myBundle.ViewListadonecesipaacTitle_ejerciciofiscal}"/>
+
+                        <h:outputText value="#{myBundle.ViewListadonecesipaacLabel_nombreinstitucion}"/>
+                        <h:outputText value="#{listadonecesipaacController.selected.nombreinstitucion}" title="#{myBundle.ViewListadonecesipaacTitle_nombreinstitucion}"/>
+
+                        <h:outputText value="#{myBundle.ViewListadonecesipaacLabel_nombresolicitante}"/>
+                        <h:outputText value="#{listadonecesipaacController.selected.nombresolicitante}" title="#{myBundle.ViewListadonecesipaacTitle_nombresolicitante}"/>
+
+                        <h:outputText value="#{myBundle.ViewListadonecesipaacLabel_fechaelaboracion}"/>
+                        <h:outputText value="#{listadonecesipaacController.selected.fechaelaboracion}" title="#{myBundle.ViewListadonecesipaacTitle_fechaelaboracion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewListadonecesipaacLabel_codigoinstitucion}"/>
+                        <h:outputText value="#{listadonecesipaacController.selected.codigoinstitucion.codigoinstitucion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ListadonecesipaacViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

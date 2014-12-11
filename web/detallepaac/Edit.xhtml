@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DetallepaacEditDlg" widgetVar="DetallepaacEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDetallepaacTitle}" closeOnEscape="true">
+
+            <h:form id="DetallepaacEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{detallepaacController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDetallepaacLabel_detallepaacPK_nocorrelativo}" for="detallepaacPK_nocorrelativo" />
+                        <h:outputText id="detallepaacPK_nocorrelativo" value="#{detallepaacController.selected.detallepaacPK.nocorrelativo}" />
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_fuenterecurso}" for="fuenterecurso" />
+                        <p:inputText id="fuenterecurso" value="#{detallepaacController.selected.fuenterecurso}" title="#{myBundle.EditDetallepaacTitle_fuenterecurso}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_fuenterecurso}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_formacontratacion}" for="formacontratacion" />
+                        <p:inputText id="formacontratacion" value="#{detallepaacController.selected.formacontratacion}" title="#{myBundle.EditDetallepaacTitle_formacontratacion}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_formacontratacion}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_nombreprelimproceso}" for="nombreprelimproceso" />
+                        <p:inputText id="nombreprelimproceso" value="#{detallepaacController.selected.nombreprelimproceso}" title="#{myBundle.EditDetallepaacTitle_nombreprelimproceso}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_nombreprelimproceso}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_descripcionunspsc}" for="descripcionunspsc" />
+                        <p:inputText id="descripcionunspsc" value="#{detallepaacController.selected.descripcionunspsc}" title="#{myBundle.EditDetallepaacTitle_descripcionunspsc}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_descripcionunspsc}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_codigoobjetopres}" for="codigoobjetopres" />
+                        <p:inputText id="codigoobjetopres" value="#{detallepaacController.selected.codigoobjetopres}" title="#{myBundle.EditDetallepaacTitle_codigoobjetopres}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_codigoobjetopres}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_mesestimado}" for="mesestimado" />
+                        <p:inputText id="mesestimado" value="#{detallepaacController.selected.mesestimado}" title="#{myBundle.EditDetallepaacTitle_mesestimado}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_mesestimado}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_montopresupuestado}" for="montopresupuestado" />
+                        <p:inputText id="montopresupuestado" value="#{detallepaacController.selected.montopresupuestado}" title="#{myBundle.EditDetallepaacTitle_montopresupuestado}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_montopresupuestado}"/>
+
+                        <p:outputLabel value="#{myBundle.EditDetallepaacLabel_codigounspsc}" for="codigounspsc" />
+                        <p:selectOneMenu id="codigounspsc" value="#{detallepaacController.selected.codigounspsc}" required="true" requiredMessage="#{myBundle.EditDetallepaacRequiredMessage_codigounspsc}" converter="unspscConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unspscController.items}"
+                                           var="codigounspscItem"
+                                           itemValue="#{codigounspscItem}"
+                                           itemLabel="#{codigounspscItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+                        <h:outputLabel value="#{myBundle.EditDetallepaacLabel_paac}" for="paac" />
+                        <h:outputText id="paac" value="#{detallepaacController.selected.paac}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detallepaacController.save}" value="#{myBundle.Save}" update="display,:DetallepaacListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetallepaacEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('DetallepaacEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

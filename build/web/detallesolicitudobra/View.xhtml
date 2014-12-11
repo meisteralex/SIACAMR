@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallesolicitudobraViewDlg" widgetVar="DetallesolicitudobraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDetallesolicitudobraTitle}" closeOnEscape="true">
+
+            <h:form id="DetallesolicitudobraViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{detallesolicitudobraController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDetallesolicitudobraLabel_idDetalle}"/>
+                        <h:outputText value="#{detallesolicitudobraController.selected.idDetalle}" title="#{myBundle.ViewDetallesolicitudobraTitle_idDetalle}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallesolicitudobraLabel_cantidad}"/>
+                        <h:outputText value="#{detallesolicitudobraController.selected.cantidad}" title="#{myBundle.ViewDetallesolicitudobraTitle_cantidad}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallesolicitudobraLabel_unidadmedida}"/>
+                        <h:outputText value="#{detallesolicitudobraController.selected.unidadmedida}" title="#{myBundle.ViewDetallesolicitudobraTitle_unidadmedida}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallesolicitudobraLabel_obrasolicitada}"/>
+                        <h:outputText value="#{detallesolicitudobraController.selected.obrasolicitada}" title="#{myBundle.ViewDetallesolicitudobraTitle_obrasolicitada}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallesolicitudobraLabel_especifictecnicas}"/>
+                        <h:outputText value="#{detallesolicitudobraController.selected.especifictecnicas}" title="#{myBundle.ViewDetallesolicitudobraTitle_especifictecnicas}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallesolicitudobraLabel_codigounspsc}"/>
+                        <h:outputText value="#{detallesolicitudobraController.selected.codigounspsc.descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetallesolicitudobraLabel_idSolicitud}"/>
+                        <h:outputText value="#{detallesolicitudobraController.selected.idSolicitud.idSolicitud}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DetallesolicitudobraViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

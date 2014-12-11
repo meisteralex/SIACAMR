@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdendaViewDlg" widgetVar="AdendaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewAdendaTitle}" closeOnEscape="true">
+
+            <h:form id="AdendaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{adendaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewAdendaLabel_adendaPK_nocorrelativo}"/>
+                        <h:outputText value="#{adendaController.selected.adendaPK.nocorrelativo}" title="#{myBundle.ViewAdendaTitle_adendaPK_nocorrelativo}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdendaLabel_textobases}"/>
+                        <h:outputText value="#{adendaController.selected.textobases}" title="#{myBundle.ViewAdendaTitle_textobases}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdendaLabel_operacion}"/>
+                        <h:outputText value="#{adendaController.selected.operacion}" title="#{myBundle.ViewAdendaTitle_operacion}"/>
+
+                        <h:outputText value="#{myBundle.ViewAdendaLabel_expedienteproceso}"/>
+                        <h:outputText value="#{adendaController.selected.expedienteproceso.codigoproceso}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('AdendaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

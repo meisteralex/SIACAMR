@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditUsuarioLabel_iduser}" for="iduser" />
+                        <h:outputText id="iduser" value="#{usuarioController.selected.iduser}" />
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_nombreuser}" for="nombreuser" />
+                        <p:inputText id="nombreuser" value="#{usuarioController.selected.nombreuser}" title="#{myBundle.EditUsuarioTitle_nombreuser}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_passworduser}" for="passworduser" />
+                        <p:inputText id="passworduser" value="#{usuarioController.selected.passworduser}" title="#{myBundle.EditUsuarioTitle_passworduser}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_fechauser}" for="fechauser" />
+                        <p:calendar id="fechauser" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuarioController.selected.fechauser}" title="#{myBundle.EditUsuarioTitle_fechauser}"  showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_estadouser}" for="estadouser" />
+                        <p:inputText id="estadouser" value="#{usuarioController.selected.estadouser}" title="#{myBundle.EditUsuarioTitle_estadouser}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_idrol}" for="idrol" />
+                        <p:selectOneMenu id="idrol" value="#{usuarioController.selected.idrol}"  converter="rolConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{rolController.items}"
+                                           var="idrolItem"
+                                           itemValue="#{idrolItem}"
+                                           itemLabel="#{idrolItem.descripcionrol.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.save}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('UsuarioEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

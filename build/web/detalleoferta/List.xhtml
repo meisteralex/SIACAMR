@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetalleofertaListForm">
+
+        <p:panel header="#{myBundle.ListDetalleofertaTitle}">
+            <p:contextMenu id="DetalleofertaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DetalleofertaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DetalleofertaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DetalleofertaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DetalleofertaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DetalleofertaMenuItem_oferta}" icon="ui-icon-search"  actionListener="#{detalleofertaController.prepareOferta}" update=":OfertaViewForm" oncomplete="PF('OfertaViewDialog').show()" disabled="#{empty detalleofertaController.selected.oferta}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detalleofertaController.items}"
+                         var="item"
+                         rowKey="#{item.detalleofertaPK}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detalleofertaController.selected}">
+
+                <p:ajax event="rowSelect"   update=":DetalleofertaListForm:createButton :DetalleofertaListForm:viewButton :DetalleofertaListForm:editButton :DetalleofertaListForm:deleteButton :DetalleofertaListForm:DetalleofertaDataTableContextMenu" listener="#{detalleofertaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":DetalleofertaListForm:createButton :DetalleofertaListForm:viewButton :DetalleofertaListForm:editButton :DetalleofertaListForm:deleteButton :DetalleofertaListForm:DetalleofertaDataTableContextMenu" listener="#{detalleofertaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetalleofertaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.detalleofertaPK.rubro}" filterBy="#{item.detalleofertaPK.rubro}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleofertaTitle_detalleofertaPK_rubro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.detalleofertaPK.rubro}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.marcaofertada}" filterBy="#{item.marcaofertada}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleofertaTitle_marcaofertada}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.marcaofertada}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.preciounitario}" filterBy="#{item.preciounitario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleofertaTitle_preciounitario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.preciounitario}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.total}" filterBy="#{item.total}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleofertaTitle_total}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.total}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.montogarantia}" filterBy="#{item.montogarantia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleofertaTitle_montogarantia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.montogarantia}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.oferta.ofertaPK}" filterBy="#{item.oferta.ofertaPK}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalleofertaTitle_oferta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.oferta.ofertaPK}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{detalleofertaController.prepareCreate}" update=":DetalleofertaCreateForm" oncomplete="PF('DetalleofertaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DetalleofertaViewForm" oncomplete="PF('DetalleofertaViewDialog').show()" disabled="#{empty detalleofertaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DetalleofertaEditForm" oncomplete="PF('DetalleofertaEditDialog').show()" disabled="#{empty detalleofertaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{detalleofertaController.delete}" update=":growl,datalist" disabled="#{empty detalleofertaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetallenecesipaacListForm">
+
+        <p:panel header="#{myBundle.ListDetallenecesipaacTitle}">
+            <p:contextMenu id="DetallenecesipaacDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DetallenecesipaacListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DetallenecesipaacListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DetallenecesipaacListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DetallenecesipaacListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DetallenecesipaacMenuItem_codigounspsc}" icon="ui-icon-search"  actionListener="#{detallenecesipaacController.prepareCodigounspsc}" update=":UnspscViewForm" oncomplete="PF('UnspscViewDialog').show()" disabled="#{empty detallenecesipaacController.selected.codigounspsc}"/>  
+                <p:menuitem value="#{myBundle.DetallenecesipaacMenuItem_listadonecesipaac}" icon="ui-icon-search"  actionListener="#{detallenecesipaacController.prepareListadonecesipaac}" update=":ListadonecesipaacViewForm" oncomplete="PF('ListadonecesipaacViewDialog').show()" disabled="#{empty detallenecesipaacController.selected.listadonecesipaac}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detallenecesipaacController.items}"
+                         var="item"
+                         rowKey="#{item.detallenecesipaacPK}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detallenecesipaacController.selected}">
+
+                <p:ajax event="rowSelect"   update=":DetallenecesipaacListForm:createButton :DetallenecesipaacListForm:viewButton :DetallenecesipaacListForm:editButton :DetallenecesipaacListForm:deleteButton :DetallenecesipaacListForm:DetallenecesipaacDataTableContextMenu" listener="#{detallenecesipaacController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":DetallenecesipaacListForm:createButton :DetallenecesipaacListForm:viewButton :DetallenecesipaacListForm:editButton :DetallenecesipaacListForm:deleteButton :DetallenecesipaacListForm:DetallenecesipaacDataTableContextMenu" listener="#{detallenecesipaacController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetallenecesipaacListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.detallenecesipaacPK.nocorrelativo}" filterBy="#{item.detallenecesipaacPK.nocorrelativo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_detallenecesipaacPK_nocorrelativo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.detallenecesipaacPK.nocorrelativo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fuenterecurso}" filterBy="#{item.fuenterecurso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_fuenterecurso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fuenterecurso}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcionunspsc}" filterBy="#{item.descripcionunspsc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_descripcionunspsc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcionunspsc}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidadproyectada}" filterBy="#{item.cantidadproyectada}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_cantidadproyectada}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidadproyectada}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.unidadmedida}" filterBy="#{item.unidadmedida}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_unidadmedida}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unidadmedida}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.preciounitario}" filterBy="#{item.preciounitario}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_preciounitario}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.preciounitario}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.preciototal}" filterBy="#{item.preciototal}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_preciototal}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.preciototal}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.mesesperado}" filterBy="#{item.mesesperado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_mesesperado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.mesesperado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.codigounspsc.descripcion}" filterBy="#{item.codigounspsc.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_codigounspsc}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.codigounspsc.descripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.listadonecesipaac.ejerciciofiscal}" filterBy="#{item.listadonecesipaac.ejerciciofiscal}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{myBundle.ListDetallenecesipaacTitle_listadonecesipaac}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.listadonecesipaac.ejerciciofiscal}"/>
+                                    </p:column>
+                -->
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{detallenecesipaacController.prepareCreate}" update=":DetallenecesipaacCreateForm" oncomplete="PF('DetallenecesipaacCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DetallenecesipaacViewForm" oncomplete="PF('DetallenecesipaacViewDialog').show()" disabled="#{empty detallenecesipaacController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DetallenecesipaacEditForm" oncomplete="PF('DetallenecesipaacEditDialog').show()" disabled="#{empty detallenecesipaacController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{detallenecesipaacController.delete}" update=":growl,datalist" disabled="#{empty detallenecesipaacController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

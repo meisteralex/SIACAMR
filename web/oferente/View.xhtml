@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OferenteViewDlg" widgetVar="OferenteViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewOferenteTitle}" closeOnEscape="true">
+
+            <h:form id="OferenteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{oferenteController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewOferenteLabel_nombreoferente}"/>
+                        <h:outputText value="#{oferenteController.selected.nombreoferente}" title="#{myBundle.ViewOferenteTitle_nombreoferente}"/>
+
+                        <h:outputText value="#{myBundle.ViewOferenteLabel_telefonooferente}"/>
+                        <h:outputText value="#{oferenteController.selected.telefonooferente}" title="#{myBundle.ViewOferenteTitle_telefonooferente}"/>
+
+                        <h:outputText value="#{myBundle.ViewOferenteLabel_faxoferente}"/>
+                        <h:outputText value="#{oferenteController.selected.faxoferente}" title="#{myBundle.ViewOferenteTitle_faxoferente}"/>
+
+                        <h:outputText value="#{myBundle.ViewOferenteLabel_emailoferente}"/>
+                        <h:outputText value="#{oferenteController.selected.emailoferente}" title="#{myBundle.ViewOferenteTitle_emailoferente}"/>
+
+                        <h:outputText value="#{myBundle.ViewOferenteLabel_tiposervicio}"/>
+                        <h:outputText value="#{oferenteController.selected.tiposervicio}" title="#{myBundle.ViewOferenteTitle_tiposervicio}"/>
+
+                        <h:outputText value="#{myBundle.ViewOferenteLabel_calificacion}"/>
+                        <h:outputText value="#{oferenteController.selected.calificacion}" title="#{myBundle.ViewOferenteTitle_calificacion}"/>
+
+                        <h:outputText value="#{myBundle.ViewOferenteLabel_estadooferente}"/>
+                        <h:outputText value="#{oferenteController.selected.estadooferente}" title="#{myBundle.ViewOferenteTitle_estadooferente}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('OferenteViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

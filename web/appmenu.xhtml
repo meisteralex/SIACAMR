@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.AdendaHeading}..." outcome="/adenda/index" />
+                    <p:menuitem value="#{myBundle.DatosinstitucionalesHeading}..." outcome="/datosinstitucionales/index" />
+                    <p:menuitem value="#{myBundle.DetalleficharetirobasesHeading}..." outcome="/detalleficharetirobases/index" />
+                    <p:menuitem value="#{myBundle.DetallenecesipaacHeading}..." outcome="/detallenecesipaac/index" />
+                    <p:menuitem value="#{myBundle.DetalleofertaHeading}..." outcome="/detalleoferta/index" />
+                    <p:menuitem value="#{myBundle.DetallepaacHeading}..." outcome="/detallepaac/index" />
+                    <p:menuitem value="#{myBundle.DetallesolicitudobraHeading}..." outcome="/detallesolicitudobra/index" />
+                    <p:menuitem value="#{myBundle.EmpleadoHeading}..." outcome="/empleado/index" />
+                    <p:menuitem value="#{myBundle.ExpedienteprocesoHeading}..." outcome="/expedienteproceso/index" />
+                    <p:menuitem value="#{myBundle.ListadonecesipaacHeading}..." outcome="/listadonecesipaac/index" />
+                    <p:menuitem value="#{myBundle.OferenteHeading}..." outcome="/oferente/index" />
+                    <p:menuitem value="#{myBundle.OfertaHeading}..." outcome="/oferta/index" />
+                    <p:menuitem value="#{myBundle.OrdencompraHeading}..." outcome="/ordencompra/index" />
+                    <p:menuitem value="#{myBundle.PaacHeading}..." outcome="/paac/index" />
+                    <p:menuitem value="#{myBundle.RolHeading}..." outcome="/rol/index" />
+                    <p:menuitem value="#{myBundle.SolicitudobraHeading}..." outcome="/solicitudobra/index" />
+                    <p:menuitem value="#{myBundle.UnidadSolicitanteHeading}..." outcome="/unidadSolicitante/index" />
+                    <p:menuitem value="#{myBundle.UnspscHeading}..." outcome="/unspsc/index" />
+                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/usuario/index" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

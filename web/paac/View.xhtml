@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaacViewDlg" widgetVar="PaacViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPaacTitle}" closeOnEscape="true">
+
+            <h:form id="PaacViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{paacController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPaacLabel_ejerciciofiscal}"/>
+                        <h:outputText value="#{paacController.selected.ejerciciofiscal}" title="#{myBundle.ViewPaacTitle_ejerciciofiscal}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaacLabel_nombreinstitucion}"/>
+                        <h:outputText value="#{paacController.selected.nombreinstitucion}" title="#{myBundle.ViewPaacTitle_nombreinstitucion}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaacLabel_fechaelaboracion}"/>
+                        <h:outputText value="#{paacController.selected.fechaelaboracion}" title="#{myBundle.ViewPaacTitle_fechaelaboracion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewPaacLabel_version}"/>
+                        <h:outputText value="#{paacController.selected.version}" title="#{myBundle.ViewPaacTitle_version}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaacLabel_correlativomodificacion}"/>
+                        <h:outputText value="#{paacController.selected.correlativomodificacion}" title="#{myBundle.ViewPaacTitle_correlativomodificacion}"/>
+
+                        <h:outputText value="#{myBundle.ViewPaacLabel_codigoinstitucion}"/>
+                        <h:outputText value="#{paacController.selected.codigoinstitucion.codigoinstitucion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PaacViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

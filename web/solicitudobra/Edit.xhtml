@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="SolicitudobraEditDlg" widgetVar="SolicitudobraEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditSolicitudobraTitle}" closeOnEscape="true">
+
+            <h:form id="SolicitudobraEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{solicitudobraController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditSolicitudobraLabel_idSolicitud}" for="idSolicitud" />
+                        <h:outputText id="idSolicitud" value="#{solicitudobraController.selected.idSolicitud}" />
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_nombresolicitante}" for="nombresolicitante" />
+                        <p:inputText id="nombresolicitante" value="#{solicitudobraController.selected.nombresolicitante}" title="#{myBundle.EditSolicitudobraTitle_nombresolicitante}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_nombresolicitante}" size="70" maxlength="70"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_cargosolicitante}" for="cargosolicitante" />
+                        <p:inputText id="cargosolicitante" value="#{solicitudobraController.selected.cargosolicitante}" title="#{myBundle.EditSolicitudobraTitle_cargosolicitante}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_cargosolicitante}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_dependenciasolicitante}" for="dependenciasolicitante" />
+                        <p:inputText id="dependenciasolicitante" value="#{solicitudobraController.selected.dependenciasolicitante}" title="#{myBundle.EditSolicitudobraTitle_dependenciasolicitante}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_dependenciasolicitante}" size="50" maxlength="50"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{solicitudobraController.selected.fecha}" title="#{myBundle.EditSolicitudobraTitle_fecha}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_fecha}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_nombreautorizante}" for="nombreautorizante" />
+                        <p:inputText id="nombreautorizante" value="#{solicitudobraController.selected.nombreautorizante}" title="#{myBundle.EditSolicitudobraTitle_nombreautorizante}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_nombreautorizante}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_cargoautorizante}" for="cargoautorizante" />
+                        <p:inputText id="cargoautorizante" value="#{solicitudobraController.selected.cargoautorizante}" title="#{myBundle.EditSolicitudobraTitle_cargoautorizante}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_cargoautorizante}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_dependenciaautorizante}" for="dependenciaautorizante" />
+                        <p:inputText id="dependenciaautorizante" value="#{solicitudobraController.selected.dependenciaautorizante}" title="#{myBundle.EditSolicitudobraTitle_dependenciaautorizante}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_dependenciaautorizante}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_justificacion}" for="justificacion" />
+                        <p:inputText id="justificacion" value="#{solicitudobraController.selected.justificacion}" title="#{myBundle.EditSolicitudobraTitle_justificacion}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_justificacion}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_valorestimado}" for="valorestimado" />
+                        <p:inputText id="valorestimado" value="#{solicitudobraController.selected.valorestimado}" title="#{myBundle.EditSolicitudobraTitle_valorestimado}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_valorestimado}"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_formaentrega}" for="formaentrega" />
+                        <p:inputText id="formaentrega" value="#{solicitudobraController.selected.formaentrega}" title="#{myBundle.EditSolicitudobraTitle_formaentrega}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_formaentrega}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_lugarentrega}" for="lugarentrega" />
+                        <p:inputText id="lugarentrega" value="#{solicitudobraController.selected.lugarentrega}" title="#{myBundle.EditSolicitudobraTitle_lugarentrega}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_lugarentrega}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_otrascondiciones}" for="otrascondiciones" />
+                        <p:inputText id="otrascondiciones" value="#{solicitudobraController.selected.otrascondiciones}" title="#{myBundle.EditSolicitudobraTitle_otrascondiciones}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_observaciones}" for="observaciones" />
+                        <p:inputText id="observaciones" value="#{solicitudobraController.selected.observaciones}" title="#{myBundle.EditSolicitudobraTitle_observaciones}" size="255" maxlength="255"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_nombreadmcontrato}" for="nombreadmcontrato" />
+                        <p:inputText id="nombreadmcontrato" value="#{solicitudobraController.selected.nombreadmcontrato}" title="#{myBundle.EditSolicitudobraTitle_nombreadmcontrato}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_nombreadmcontrato}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_cargoadmincontrato}" for="cargoadmincontrato" />
+                        <p:inputText id="cargoadmincontrato" value="#{solicitudobraController.selected.cargoadmincontrato}" title="#{myBundle.EditSolicitudobraTitle_cargoadmincontrato}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_cargoadmincontrato}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_dependenciaadmincontrato}" for="dependenciaadmincontrato" />
+                        <p:inputText id="dependenciaadmincontrato" value="#{solicitudobraController.selected.dependenciaadmincontrato}" title="#{myBundle.EditSolicitudobraTitle_dependenciaadmincontrato}" required="true" requiredMessage="#{myBundle.EditSolicitudobraRequiredMessage_dependenciaadmincontrato}" size="15" maxlength="15"/>
+
+                        <p:outputLabel value="#{myBundle.EditSolicitudobraLabel_idUs}" for="idUs" />
+                        <p:selectOneMenu id="idUs" value="#{solicitudobraController.selected.idUs}"  converter="unidadSolicitanteConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unidadSolicitanteController.items}"
+                                           var="idUsItem"
+                                           itemValue="#{idUsItem}"
+                                           itemLabel="#{idUsItem.idUs.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{solicitudobraController.save}" value="#{myBundle.Save}" update="display,:SolicitudobraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SolicitudobraEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('SolicitudobraEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

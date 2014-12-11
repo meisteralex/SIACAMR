@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AdendaListForm">
+
+        <p:panel header="#{myBundle.ListAdendaTitle}">
+            <p:contextMenu id="AdendaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AdendaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AdendaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AdendaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AdendaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AdendaMenuItem_expedienteproceso}" icon="ui-icon-search"  actionListener="#{adendaController.prepareExpedienteproceso}" update=":ExpedienteprocesoViewForm" oncomplete="PF('ExpedienteprocesoViewDialog').show()" disabled="#{empty adendaController.selected.expedienteproceso}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{adendaController.items}"
+                         var="item"
+                         rowKey="#{item.adendaPK}"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{adendaController.selected}">
+
+                <p:ajax event="rowSelect"   update=":AdendaListForm:createButton :AdendaListForm:viewButton :AdendaListForm:editButton :AdendaListForm:deleteButton :AdendaListForm:AdendaDataTableContextMenu" listener="#{adendaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update=":AdendaListForm:createButton :AdendaListForm:viewButton :AdendaListForm:editButton :AdendaListForm:deleteButton :AdendaListForm:AdendaDataTableContextMenu" listener="#{adendaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AdendaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.adendaPK.nocorrelativo}" filterBy="#{item.adendaPK.nocorrelativo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdendaTitle_adendaPK_nocorrelativo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.adendaPK.nocorrelativo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.textobases}" filterBy="#{item.textobases}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdendaTitle_textobases}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.textobases}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.operacion}" filterBy="#{item.operacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdendaTitle_operacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.operacion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.expedienteproceso.codigoproceso}" filterBy="#{item.expedienteproceso.codigoproceso}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAdendaTitle_expedienteproceso}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.expedienteproceso.codigoproceso}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{adendaController.prepareCreate}" update=":AdendaCreateForm" oncomplete="PF('AdendaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AdendaViewForm" oncomplete="PF('AdendaViewDialog').show()" disabled="#{empty adendaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AdendaEditForm" oncomplete="PF('AdendaEditDialog').show()" disabled="#{empty adendaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{adendaController.delete}" update=":growl,datalist" disabled="#{empty adendaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

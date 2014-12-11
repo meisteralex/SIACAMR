@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ListadonecesipaacCreateDlg" widgetVar="ListadonecesipaacCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateListadonecesipaacTitle}" closeOnEscape="true">
+
+            <h:form id="ListadonecesipaacCreateForm">
+
+                <h:panelGroup id="display" rendered="#{listadonecesipaacController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateListadonecesipaacLabel_ejerciciofiscal}" for="ejerciciofiscal" />
+                        <p:inputText id="ejerciciofiscal" value="#{listadonecesipaacController.selected.ejerciciofiscal}" title="#{myBundle.CreateListadonecesipaacTitle_ejerciciofiscal}" required="true" requiredMessage="#{myBundle.CreateListadonecesipaacRequiredMessage_ejerciciofiscal}" size="4" maxlength="4"/>
+
+                        <p:outputLabel value="#{myBundle.CreateListadonecesipaacLabel_nombreinstitucion}" for="nombreinstitucion" />
+                        <p:inputText id="nombreinstitucion" value="#{listadonecesipaacController.selected.nombreinstitucion}" title="#{myBundle.CreateListadonecesipaacTitle_nombreinstitucion}" required="true" requiredMessage="#{myBundle.CreateListadonecesipaacRequiredMessage_nombreinstitucion}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateListadonecesipaacLabel_nombresolicitante}" for="nombresolicitante" />
+                        <p:inputText id="nombresolicitante" value="#{listadonecesipaacController.selected.nombresolicitante}" title="#{myBundle.CreateListadonecesipaacTitle_nombresolicitante}" required="true" requiredMessage="#{myBundle.CreateListadonecesipaacRequiredMessage_nombresolicitante}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{myBundle.CreateListadonecesipaacLabel_fechaelaboracion}" for="fechaelaboracion" />
+                        <p:calendar id="fechaelaboracion" pattern="MM/dd/yyyy" value="#{listadonecesipaacController.selected.fechaelaboracion}" title="#{myBundle.CreateListadonecesipaacTitle_fechaelaboracion}" required="true" requiredMessage="#{myBundle.CreateListadonecesipaacRequiredMessage_fechaelaboracion}" showOn="button"/>
+
+                        <p:outputLabel value="#{myBundle.CreateListadonecesipaacLabel_codigoinstitucion}" for="codigoinstitucion" />
+                        <p:selectOneMenu id="codigoinstitucion" value="#{listadonecesipaacController.selected.codigoinstitucion}" required="true" requiredMessage="#{myBundle.CreateListadonecesipaacRequiredMessage_codigoinstitucion}" converter="datosinstitucionalesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{datosinstitucionalesController.items}"
+                                           var="codigoinstitucionItem"
+                                           itemValue="#{codigoinstitucionItem}"
+                                           itemLabel="#{codigoinstitucionItem.codigoinstitucion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{listadonecesipaacController.saveNew}" value="#{myBundle.Save}" update="display,:ListadonecesipaacListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ListadonecesipaacCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('ListadonecesipaacCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

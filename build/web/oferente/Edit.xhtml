@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="OferenteEditDlg" widgetVar="OferenteEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditOferenteTitle}" closeOnEscape="true">
+
+            <h:form id="OferenteEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{oferenteController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditOferenteLabel_nombreoferente}" for="nombreoferente" />
+                        <h:outputText id="nombreoferente" value="#{oferenteController.selected.nombreoferente}" />
+
+                        <p:outputLabel value="#{myBundle.EditOferenteLabel_telefonooferente}" for="telefonooferente" />
+                        <p:inputText id="telefonooferente" value="#{oferenteController.selected.telefonooferente}" title="#{myBundle.EditOferenteTitle_telefonooferente}" required="true" requiredMessage="#{myBundle.EditOferenteRequiredMessage_telefonooferente}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditOferenteLabel_faxoferente}" for="faxoferente" />
+                        <p:inputText id="faxoferente" value="#{oferenteController.selected.faxoferente}" title="#{myBundle.EditOferenteTitle_faxoferente}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditOferenteLabel_emailoferente}" for="emailoferente" />
+                        <p:inputText id="emailoferente" value="#{oferenteController.selected.emailoferente}" title="#{myBundle.EditOferenteTitle_emailoferente}" required="true" requiredMessage="#{myBundle.EditOferenteRequiredMessage_emailoferente}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditOferenteLabel_tiposervicio}" for="tiposervicio" />
+                        <p:inputText id="tiposervicio" value="#{oferenteController.selected.tiposervicio}" title="#{myBundle.EditOferenteTitle_tiposervicio}" required="true" requiredMessage="#{myBundle.EditOferenteRequiredMessage_tiposervicio}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.EditOferenteLabel_calificacion}" for="calificacion" />
+                        <p:inputText id="calificacion" value="#{oferenteController.selected.calificacion}" title="#{myBundle.EditOferenteTitle_calificacion}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.EditOferenteLabel_estadooferente}" for="estadooferente" />
+                        <p:inputText id="estadooferente" value="#{oferenteController.selected.estadooferente}" title="#{myBundle.EditOferenteTitle_estadooferente}" required="true" requiredMessage="#{myBundle.EditOferenteRequiredMessage_estadooferente}" size="10" maxlength="10"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{oferenteController.save}" value="#{myBundle.Save}" update="display,:OferenteListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OferenteEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('OferenteEditDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

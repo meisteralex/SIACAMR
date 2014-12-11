@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleficharetirobasesViewDlg" widgetVar="DetalleficharetirobasesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDetalleficharetirobasesTitle}" closeOnEscape="true">
+
+            <h:form id="DetalleficharetirobasesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{detalleficharetirobasesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_detalleficharetirobasesPK_nocorrelativo}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.detalleficharetirobasesPK.nocorrelativo}" title="#{myBundle.ViewDetalleficharetirobasesTitle_detalleficharetirobasesPK_nocorrelativo}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_nombrecomisionado}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.nombrecomisionado}" title="#{myBundle.ViewDetalleficharetirobasesTitle_nombrecomisionado}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_documentoidcomisionado}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.documentoidcomisionado}" title="#{myBundle.ViewDetalleficharetirobasesTitle_documentoidcomisionado}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_lugarparanotificaciones}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.lugarparanotificaciones}" title="#{myBundle.ViewDetalleficharetirobasesTitle_lugarparanotificaciones}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_fecharetirobases}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.fecharetirobases}" title="#{myBundle.ViewDetalleficharetirobasesTitle_fecharetirobases}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_horaretirobases}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.horaretirobases}" title="#{myBundle.ViewDetalleficharetirobasesTitle_horaretirobases}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_nombreoferente}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.nombreoferente.nombreoferente}"/>
+
+                        <h:outputText value="#{myBundle.ViewDetalleficharetirobasesLabel_expedienteproceso}"/>
+                        <h:outputText value="#{detalleficharetirobasesController.selected.expedienteproceso.codigoproceso}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DetalleficharetirobasesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

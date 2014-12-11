@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OfertaCreateDlg" widgetVar="OfertaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateOfertaTitle}" closeOnEscape="true">
+
+            <h:form id="OfertaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{ofertaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateOfertaLabel_estadooferta}" for="estadooferta" />
+                        <p:inputText id="estadooferta" value="#{ofertaController.selected.estadooferta}" title="#{myBundle.CreateOfertaTitle_estadooferta}" required="true" requiredMessage="#{myBundle.CreateOfertaRequiredMessage_estadooferta}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOfertaLabel_montooferta}" for="montooferta" />
+                        <p:inputText id="montooferta" value="#{ofertaController.selected.montooferta}" title="#{myBundle.CreateOfertaTitle_montooferta}" required="true" requiredMessage="#{myBundle.CreateOfertaRequiredMessage_montooferta}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateOfertaLabel_oferente}" for="oferente" />
+                        <p:selectOneMenu id="oferente" value="#{ofertaController.selected.oferente}" required="true" requiredMessage="#{myBundle.CreateOfertaRequiredMessage_oferente}" converter="oferenteConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{oferenteController.items}"
+                                           var="oferenteItem"
+                                           itemValue="#{oferenteItem}"
+                                           itemLabel="#{oferenteItem.nombreoferente.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateOfertaLabel_expedienteproceso}" for="expedienteproceso" />
+                        <p:selectOneMenu id="expedienteproceso" value="#{ofertaController.selected.expedienteproceso}" required="true" requiredMessage="#{myBundle.CreateOfertaRequiredMessage_expedienteproceso}" converter="expedienteprocesoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{expedienteprocesoController.items}"
+                                           var="expedienteprocesoItem"
+                                           itemValue="#{expedienteprocesoItem}"
+                                           itemLabel="#{expedienteprocesoItem.codigoproceso.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ofertaController.saveNew}" value="#{myBundle.Save}" update="display,:OfertaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OfertaCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" onclick="PF('OfertaCreateDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
